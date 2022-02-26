@@ -1,9 +1,18 @@
 import React from 'react';
-import { View } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import NavBar from "./NavBar";
+
 function Voix(props: any) {
+
+    const styles = StyleSheet.create({
+        container: {
+            backgroundColor: "#272A56",
+            height: "100%"
+        }
+    });
+
     return (
-        <View>
+        <View style={styles.container}>
             <NavBar setViewVisible={props.setViewVisible}/>
         </View>
     );

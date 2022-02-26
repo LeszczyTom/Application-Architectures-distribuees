@@ -32,6 +32,7 @@ const App = () => {
 
   const styles = StyleSheet.create({
     container: {
+      backgroundColor: "#272A56",
       height: "100%",
       justifyContent: 'center',
       alignItems: 'center'
@@ -43,7 +44,7 @@ const App = () => {
     separator: {
       marginVertical: 20,
       borderBottomWidth: 0,
-    },
+    }
   });
 
   const [viewVisible, setViewVisible] = React.useState(0);
@@ -61,12 +62,12 @@ const App = () => {
   };
 
   const Void = () => {
-    return <View></View>;
+    return <View/>;
   }
 
   return (
     <SafeAreaView style={backgroundStyle}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
+      <StatusBar barStyle={'light-content'} backgroundColor={"#272A56"}/>
       {viewVisible === 0 ? <Menu /> : <Void />}
       {viewVisible === 1 ? <Voix setViewVisible={setViewVisible}/> : <Void />}
     </SafeAreaView>
