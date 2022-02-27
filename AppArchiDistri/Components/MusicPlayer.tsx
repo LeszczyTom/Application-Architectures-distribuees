@@ -1,35 +1,99 @@
 import React from 'react';
-import { View, StyleSheet, Text, ToastAndroid, Button } from 'react-native';
+import { View, StyleSheet, Text, TouchableOpacity, ToastAndroid } from 'react-native';
 import SoundPlayer from 'react-native-sound-player'
 import Slider from '@react-native-community/slider'
+import IconFa from 'react-native-vector-icons/FontAwesome';
+import IconFe from 'react-native-vector-icons/Feather';
+import IconEn from 'react-native-vector-icons/Entypo';
+import IconIo from 'react-native-vector-icons/Ionicons';
+
+import LinearGradient from 'react-native-linear-gradient';
 
 function MusicPlayer() {
     const [currentTime, setCurrentTime] = React.useState(0)
     const [playing, setPlaying] = React.useState(false)
+    const [loaded, setLoaded] = React.useState(false)
     const [duration, setDuration] = React.useState(0)
+    const [shuffle, setShuffle] = React.useState(false)
+    const [repeat, setRepeat] = React.useState(false)
+
     const styles = StyleSheet.create({
         Container: {
             flexDirection: "column",
-            marginTop: "5%"
+            marginTop: "8%",
         },
         Slider: {
             flex: 1,
         },
         CurrenTime: {
-            marginStart: "3%",
+            marginStart: "4%",
             color: "#A7A1F8",
             fontSize: 12
         },
         Duration: {
-            marginEnd: "3%",
+            marginEnd: "4%",
             color: "#A7A1F8",
             fontSize: 12
         },
         Timer: {
             flexDirection: "row",
-            marginBottom: "5%"
+        },
+        Buttons: {
+            flexDirection: "row",
+            marginTop: "10%",
+        },
+        Separator: {
+            flex: 1
+        },
+        Shuffle: {
+            marginStart: 40,
+            height: 65,
+            textAlignVertical: "center"
+        },
+        Repeat: {
+            marginEnd: 40,
+            height: 65,
+            textAlignVertical: "center"
+        },
+        Play: {
+            width: 65,
+            height: 65,
+            borderRadius: 100,
+            textAlign: "center",
+            paddingStart: 3,
+            textAlignVertical: "center",
+            borderWidth: 3,
+            borderColor: "#060515"
+        },
+        Pause: {
+            width: 65,
+            height: 65,
+            borderRadius: 100,
+            textAlign: "center",
+            textAlignVertical: "center",
+            borderWidth: 3,
+            borderColor: "#060515"
+        },
+        SkipBack: {
+            height: 65,
+            textAlignVertical: "center",
+            paddingStart: 15
+        },
+        SkipForward: {
+            height: 65,
+            textAlignVertical: "center",
+            paddingEnd: 15
+        },
+        PlayRound: {
+            borderRadius: 100,
+            padding: 1,
+            marginEnd: 1
         }
     })
+
+    const makeToast = (msg: string) => {
+        ToastAndroid.show(msg, ToastAndroid.SHORT);
+    }
 
     const getInfo = async () => {
         try {
@@ -41,29 +105,23 @@ function MusicPlayer() {
         }
     }
 
+    const loadURL = () => {
+        try {
+            SoundPlayer.loadUrl("https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3")
+            setLoaded(true)
+        }catch (Exception) {
+            console.log(Exception)
+            setLoaded(false)
+        }
+    }
+
+    const playResumeSound = () => {
+        if(!loaded) loadURL()
+        if(playing) pauseSound()
+        else playSound()
+    }
+
     const playSound = () => {
-        try {
-            SoundPlayer.playUrl("https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3")
-            ToastAndroid.show("Lecture", ToastAndroid.SHORT);
-            setPlaying(true)
-        }catch (Exception) {
-            console.log(Exception)
-            setPlaying(false)
-        }
-    }
-
-    const stopSound = () => {
-        try {
-            SoundPlayer.stop()
-            setPlaying(false)
-            setCurrentTime(0)
-        }catch (Exception) {
-            console.log(Exception)
-            setPlaying(false)
-        }
-    }
-
-    const resumeSound = () => {
         try {
             SoundPlayer.resume()
             setPlaying(true)
@@ -71,6 +129,18 @@ function MusicPlayer() {
             console.log(Exception)
             setPlaying(false)
         }
+    }
+
+    const shuffleButton = () => {
+        if(shuffle) setShuffle(false)
+        else setShuffle(true)
+        makeToast("shuffle")
+    }
+
+    const repeatButton = () => {
+        if(repeat) setRepeat(false)
+        else setRepeat(true)
+        makeToast("repeat")
     }
 
     const pauseSound = () => {
@@ -102,6 +172,7 @@ function MusicPlayer() {
 
 
     React.useEffect(() => {
+        if(!loaded) loadURL()
         let interval: any;
         if(playing) interval = setInterval(() => getInfo(), 500)
         return () => {
@@ -125,11 +196,29 @@ function MusicPlayer() {
                 />
                 <Text style={styles.Duration}>{toMinuteAndSecond(duration)}</Text>
             </View>
-
-            <Button title={"Jouer son"} onPress={() => playSound()}/>
-            <Button title={"Resume"} onPress={() => resumeSound()}/>
-            <Button title={"Pause"} onPress={() => pauseSound()}/>
-            <Button title={"Stop"} onPress={() => stopSound()}/>
+            <View style={styles.Buttons}>
+                <TouchableOpacity>
+                    <IconEn name={"shuffle"} color={shuffle ? "#a64cfe" : "#C2C2FF"} size={30} style={styles.Shuffle} onPress={() => shuffleButton()}/>
+                </TouchableOpacity>
+                <View style={styles.Separator}/>
+                <TouchableOpacity>
+                    <IconIo name={"play-skip-back"} color="#C2C2FF" size={30} style={styles.SkipBack} onPress={() => makeToast("precedent")}/>
+                </TouchableOpacity>
+                <View style={styles.Separator}/>
+                <TouchableOpacity onPress={() => playResumeSound()}>
+                    <LinearGradient colors={['#a244ff', '#bb7afb']} style={styles.PlayRound}>
+                        <IconFa name={playing === true ? "pause" : "play"} color="#C2C2FF" size={30} style={playing === true ? styles.Pause : styles.Play}/>
+                    </LinearGradient>
+                </TouchableOpacity>
+                <View style={styles.Separator}/>
+                <TouchableOpacity>
+                    <IconIo name={"play-skip-forward"} color="#C2C2FF" size={30} style={styles.SkipForward} onPress={() => makeToast("suivant")}/>
+                </TouchableOpacity>
+                <View style={styles.Separator}/>
+                <TouchableOpacity>
+                    <IconFe name={"repeat"} color={repeat ? "#a64cfe" : "#C2C2FF"} size={30} style={styles.Repeat} onPress={() => repeatButton()}/>
+                </TouchableOpacity>
+            </View>
         </View>
     );
 }

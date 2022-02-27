@@ -20,11 +20,11 @@ function ContenuPrincipal() {
         Premier: {
             marginEnd: "3%",
             marginStart: "3%",
-            marginTop: "3%",
+            marginTop: "8%",
             height: "55%",
         },
         Second: {
-            marginTop: "2%",
+            marginTop: "5%",
             width: "100%",
             height: "35%",
         },
