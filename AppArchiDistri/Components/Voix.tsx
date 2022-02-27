@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import NavBar from "./NavBar";
+import ContenuPrincipal from "./ContenuPrincipal";
 
 function Voix(props: any) {
 
@@ -14,6 +15,7 @@ function Voix(props: any) {
     return (
         <View style={styles.container}>
             <NavBar setViewVisible={props.setViewVisible}/>
+            <ContenuPrincipal/>
         </View>
     );
 }
