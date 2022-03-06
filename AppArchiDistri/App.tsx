@@ -22,6 +22,7 @@ import {
   Colors
 } from 'react-native/Libraries/NewAppScreen';
 import Voix from "./Components/Voix";
+import Manuel from "./Components/Manuel";
 
 const App = () => {
   const isDarkMode = useColorScheme() === 'dark';
@@ -55,7 +56,7 @@ const App = () => {
           <View style={styles.button}>
             <Button title={"Voix"} onPress={() => setViewVisible(1)}/>
             <View style={styles.separator} />
-            <Button title={"Manuel"}/>
+            <Button title={"Manuel"} onPress={() => setViewVisible(2)}/>
           </View>
         </View>
     );
@@ -70,6 +71,7 @@ const App = () => {
       <StatusBar barStyle={'light-content'} backgroundColor={"#272A56"}/>
       {viewVisible === 0 ? <Menu /> : <Void />}
       {viewVisible === 1 ? <Voix setViewVisible={setViewVisible}/> : <Void />}
+      {viewVisible === 2 ? <Manuel setViewVisible={setViewVisible}/> : <Void />}
     </SafeAreaView>
   );
 };
