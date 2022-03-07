@@ -119,16 +119,18 @@ function VlcPlayer() {
     const onProgress = (timeInfo: any) => {
         setCurrentTime(timeInfo.currentTime)
     }
-
+//https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3
     return (
         <View style={styles.Container}>
-            <Video source={{uri: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"}}
+            <Video source={{uri: "http://localhost:8080"}}
                    style={styles.audio}
+                   playInBackground={true}
                    paused={!playing}
                    repeat={repeat}
                    ref={ref => (videoRef = ref)}
                    onProgress={timeInfo => onProgress(timeInfo)}
                    onLoad={soundInfos => onLoad(soundInfos)}
+                   onSeek={obj => setCurrentTime(obj.currentTime)}
                    onEnd={() => setPlaying(false)}
             />
 
