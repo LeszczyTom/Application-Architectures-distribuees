@@ -12,12 +12,14 @@
   "dependencies": {
     "@miblanchard/react-native-slider": "^1.5.0",
     "@react-native-community/slider": "^4.2.0",
+    "@react-native-voice/voice": "^3.2.2",
     "@types/react-native-vector-icons": "^6.4.10",
     "@types/react-native-video": "^5.0.12",
     "react": "17.0.2",
     "react-native": "^0.67.3",
     "react-native-linear-gradient": "^2.5.6",
     "react-native-sound-player": "^0.11.3",
+    "react-native-swipe-gestures": "^1.0.5",
     "react-native-vector-icons": "^9.1.0",
     "react-native-video": "^5.2.0"
   },

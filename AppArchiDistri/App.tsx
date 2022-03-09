@@ -23,7 +23,7 @@ import {
 } from 'react-native/Libraries/NewAppScreen';
 import Voix from "./Components/Voix";
 import Manuel from "./Components/Manuel";
-import MainScreen from "./Components/MainScreen";
+import MainScreen from "./AppComponents/MainScreen";
 
 const App = () => {
   const isDarkMode = useColorScheme() === 'dark';
