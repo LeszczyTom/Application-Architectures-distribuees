@@ -23,6 +23,7 @@ import {
 } from 'react-native/Libraries/NewAppScreen';
 import Voix from "./Components/Voix";
 import Manuel from "./Components/Manuel";
+import MainScreen from "./Components/MainScreen";
 
 const App = () => {
   const isDarkMode = useColorScheme() === 'dark';
@@ -57,21 +58,20 @@ const App = () => {
             <Button title={"Voix"} onPress={() => setViewVisible(1)}/>
             <View style={styles.separator} />
             <Button title={"Manuel"} onPress={() => setViewVisible(2)}/>
+            <View style={styles.separator} />
+            <Button title={"Final"} onPress={() => setViewVisible(3)}/>
           </View>
         </View>
     );
   };
 
-  const Void = () => {
-    return <View/>;
-  }
-
   return (
     <SafeAreaView style={backgroundStyle}>
       <StatusBar barStyle={'light-content'} backgroundColor={"#272A56"}/>
-      {viewVisible === 0 ? <Menu /> : <Void />}
-      {viewVisible === 1 ? <Voix setViewVisible={setViewVisible}/> : <Void />}
-      {viewVisible === 2 ? <Manuel setViewVisible={setViewVisible}/> : <Void />}
+      {viewVisible === 0 ? <Menu /> : <></>}
+      {viewVisible === 1 ? <Voix setViewVisible={setViewVisible}/> : <></>}
+      {viewVisible === 2 ? <Manuel setViewVisible={setViewVisible}/> : <></>}
+      {viewVisible === 3 ? <MainScreen setViewVisible={setViewVisible}/> : <></>}
     </SafeAreaView>
   );
 };
