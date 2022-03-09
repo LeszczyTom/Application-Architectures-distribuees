@@ -119,10 +119,10 @@ function VlcPlayer() {
     const onProgress = (timeInfo: any) => {
         setCurrentTime(timeInfo.currentTime)
     }
-//https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3
+
     return (
         <View style={styles.Container}>
-            <Video source={{uri: "http://localhost:8080"}}
+            <Video source={{uri: "http://mscp2.live-streams.nl:8270/vosfm.mp3"}}
                    style={styles.audio}
                    playInBackground={true}
                    paused={!playing}
