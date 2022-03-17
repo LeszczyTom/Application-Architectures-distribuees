@@ -1,16 +1,37 @@
 package tl;
 
 public class Result {
-    String action;
-    String objet;
+    private String action;
+    private String objet;
+
+    public Result() {
+        addAction("");
+        addObjet("");
+    }
 
     public Result(String action, String objet) {
-        this.action = action;
-        this.objet = objet;
+        addAction(action);
+        addObjet(objet);
     }
 
     public Result(String action) {
+        addAction(action);
+    }
+
+    public void addAction(String action) {
         this.action = action;
+    }
+
+    public void  addObjet(String objet) {
+        this.objet = objet;
+    }
+
+    public String getAction() {
+        return action;
+    }
+
+    public String getObet() {
+        return objet;
     }
 
     public String toString() {
