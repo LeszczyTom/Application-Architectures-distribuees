@@ -1,10 +1,7 @@
 package tl;
 
 class NLP {
-    public NLP() {
-    }
-
-    public String coupleActionObjetDepuisPhrase(String phraseEntree) {
-        return phraseEntree;
+    public Result coupleActionObjetDepuisPhrase(String phraseEntree) {
+        return new Result( phraseEntree);
     }
 }
