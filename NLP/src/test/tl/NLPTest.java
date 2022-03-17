@@ -20,7 +20,7 @@ public class NLPTest {
 
     @org.junit.Test
     public void pauseMusic() {
-        assertEquals( new Result ("pause").toString(), nlp.coupleActionObjetDepuisPhrase("Met sur pause").toString());
+        assertEquals( new Result ("pause").toString(), nlp.coupleActionObjetDepuisPhrase("Pause").toString());
     }
 
     @org.junit.Test
