@@ -30,8 +30,8 @@ public class NLPTest {
 
     @org.junit.Test
     public void volume() {
-        assertEquals( new Result ("volUp").toString(), nlp.coupleActionObjetDepuisPhrase("Baisse le son").toString());
-        assertEquals( new Result ("volDown").toString(), nlp.coupleActionObjetDepuisPhrase("Monte le son").toString());
+        assertEquals( new Result ("volumedown").toString(), nlp.coupleActionObjetDepuisPhrase("Baisse le son").toString());
+        assertEquals( new Result ("volumeup").toString(), nlp.coupleActionObjetDepuisPhrase("Monte le son").toString());
     }
 
     @org.junit.Test
