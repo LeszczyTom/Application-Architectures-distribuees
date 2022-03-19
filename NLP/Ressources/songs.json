@@ -1,0 +1,121 @@
+{
+  "songs": {
+    "0": {
+      "title": "Music Sounds Better With You",
+      "album": "Music Sounds Better With You",
+      "artist": "Stardust",
+      "keyword": [
+        "Music",
+        "Sounds",
+        "Better",
+        "With",
+        "You",
+        "Stardust"
+      ]
+    } ,
+    "1": {
+      "title": "Come out and play",
+      "album": "Smash",
+      "artist": "The offspring",
+      "keyword": [
+        "Come",
+        "out",
+        "and",
+        "play",
+        "Smash",
+        "offspring"
+      ]
+    },
+    "2": {
+      "title": "Attack",
+      "album": "Hypnotize",
+      "artist": "System OF A Down",
+      "keyword": [
+        "Attack",
+        "Hypnotize",
+        "System",
+        "Down"
+      ]
+    },
+    "3": {
+      "title": "Reptilia",
+      "album": "Room On Fire",
+      "artist": "The Strokes",
+      "keyword": [
+        "Reptilia",
+        "Room",
+        "Fire",
+        "Strokes"
+      ]
+    },
+    "4": {
+      "title": "Chelsea Dagger",
+      "album": "Costello Music",
+      "artist": "The Fratellis",
+      "keyword": [
+        "Chelsea",
+        "Dagger",
+        "Costello",
+        "Music",
+        "Fratellis"
+      ]
+    },
+    "5": {
+      "title": "Toxicity",
+      "album": "Toxicity",
+      "artist": "System Of A Down",
+      "keyword": [
+        "Toxicity",
+        "System",
+        "Down"
+      ]
+    },
+    "6": {
+      "title": "Brianstorm",
+      "album": "Artic Monkeys",
+      "artist": "Favorite Worst Nightmare",
+      "keyword": [
+        "Brianstorm",
+        "Artic",
+        "Monkeys",
+        "Favorite",
+        "Worst",
+        "Nightmare"
+      ]
+    },
+    "7": {
+      "title": "Fallen Leaves",
+      "album": "Billy Talent II",
+      "artist": "Billy Talent",
+      "keyword": [
+        "Fallen",
+        "Leaves",
+        "Billy",
+        "Talent"
+      ]
+    },
+    "8": {
+      "title": "Starlight",
+      "album": "Starlight",
+      "artist": "The Superman Lover",
+      "keyword": [
+        "Starlight",
+        "Superman",
+        "Lover"
+      ]
+    },
+    "9": {
+      "title": "In Too Deep",
+      "album": "All Killer, No Filler",
+      "artist": "Sum41",
+      "keyword": [
+        "Too",
+        "Deep",
+        "All",
+        "Killer",
+        "Filler",
+        "Sum41"
+      ]
+    }
+  }
+}
