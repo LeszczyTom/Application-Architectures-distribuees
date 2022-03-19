@@ -15,6 +15,9 @@ public class NLPTest {
         assertEquals( new Result ("play", "the offspring").toString(), nlp.coupleActionObjetDepuisPhrase("Joue The offspring").toString());
         assertEquals( new Result ("play", "reptilia - the strokes").toString(), nlp.coupleActionObjetDepuisPhrase("Joue Reptilia de The Strokes").toString());
         assertEquals( new Result ("play", "come out and play - the offspring").toString(), nlp.coupleActionObjetDepuisPhrase("Joue Come out and play de The offspring").toString());
+        assertEquals( new Result ("play", "fallen leaves").toString(), nlp.coupleActionObjetDepuisPhrase("Joue Fallen Leaves").toString());
+        assertEquals( new Result ("play", "starlight").toString(), nlp.coupleActionObjetDepuisPhrase("Joue Starlight").toString());
+        assertEquals( new Result ("play", "in too deep").toString(), nlp.coupleActionObjetDepuisPhrase("Joue In Too Deep").toString());
     }
 
 
