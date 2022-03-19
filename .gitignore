@@ -61,3 +61,6 @@ buck-out/
 # Default ignored files
 /shelf/
 /workspace.xml
+/.idea/
+/.idea/sonarlint/
+/.idea/sonarlint/issuestore/9/
