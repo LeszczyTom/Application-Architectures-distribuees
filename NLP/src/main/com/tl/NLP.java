@@ -1,6 +1,22 @@
 package tl;
 
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Stream;
+
 class NLP {
+
+    public List<String> getKeywords() {
+        try (Stream<String> stream = Files.lines(Paths.get("NLP/src/Ressources/keywords.txt"))) {
+            return stream.toList();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return Collections.emptyList();
+    }
+
     public Result coupleActionObjetDepuisPhrase(String phraseEntree) {
         Result res = new Result();
         // Normalisation en minuscule puis tokenisation
