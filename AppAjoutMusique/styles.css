@@ -1,0 +1,23 @@
+body {
+    margin: 0;
+}
+
+.mainContent {
+    width: 600px;
+    height: 800px;
+    display: flex;
+    flex-direction: column;
+}
+
+.mainContent *{
+    margin-left: 6%;
+    margin-right: 6%;
+}
+
+.horizontalLine {
+    border-top: 1px solid lightgrey;
+    height: 0;
+    width: 88%;
+    margin: 10px auto 0 auto;
+}
+

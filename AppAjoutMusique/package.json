@@ -1,0 +1,15 @@
+{
+  "name": "appajoutmusique",
+  "version": "1.0.0",
+  "description": "Application pour ajouter des musiques au json",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron ."
+  },
+  "author": "Leszczynski Tom",
+  "license": "MIT",
+  "dependencies": {
+    "electron": "^17.1.2"
+  }
+}
