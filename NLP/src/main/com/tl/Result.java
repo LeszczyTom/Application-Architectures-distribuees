@@ -5,8 +5,8 @@ public class Result {
     private String objet;
 
     public Result() {
-        addAction("");
-        addObjet("");
+        addAction(null);
+        addObjet(null);
     }
 
     public Result(String action, String objet) {
@@ -16,6 +16,7 @@ public class Result {
 
     public Result(String action) {
         addAction(action);
+        addObjet(null);
     }
 
     public void addAction(String action) {

@@ -5,6 +5,7 @@ import java.nio.file.Paths;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Stream;
+import java.text.Normalizer;
 
 class NLP {
 
@@ -12,6 +13,16 @@ class NLP {
 
     public NLP() {
         keywords = getKeywords();
+    }
+
+    /**
+     * https://stackoverflow.com/a/15190787
+     */
+    public static String stripAccents(String s)
+    {
+        s = Normalizer.normalize(s, Normalizer.Form.NFD);
+        s = s.replaceAll("[\\p{InCombiningDiacriticalMarks}]", "");
+        return s;
     }
 
     public List<String> getKeywords() {
@@ -25,11 +36,16 @@ class NLP {
 
     public Result coupleActionObjetDepuisPhrase(String phraseEntree) {
         Result res = new Result();
-        // Normalisation en minuscule puis tokenisation
-        String[] tokens = phraseEntree.toLowerCase().split(" ");
+        // - Caractères spéciaux, majuscules -> minuscules puis tokenisation
+        String[] tokens = stripAccents(phraseEntree).replaceAll("[^a-zA-Z0-9]+", " ").toLowerCase().split(" ");
 
-        res.addAction(getAction(tokens));
-        res.addObjet(getObject(tokens, res.getAction()));
+        String action = getAction(tokens);
+        if(action != null) {
+            res.addAction(action);
+            res.addObjet(getObject(tokens, res.getAction()));
+            return res;
+        }
+        res.addAction(getOtherAction(tokens));
         return res;
     }
 
@@ -40,14 +56,25 @@ class NLP {
             case "baisse" -> "volumedown";
             case "reprend" -> "resume";
             case "monte" -> "volumeup";
-            case "passe" -> "forward";
-            case "suivant" -> "forward";
-            case "revient" -> "backward";
-            case "precedent" -> "backward";
-            case "stop" -> "stop";
-            case "arrete" -> "stop";
+            case "passe", "suivant" -> "forward";
+            case "revient", "precedent" -> "backward";
+            case "stop", "arrete" -> "stop";
             default -> null;
         };
+    }
+
+    public String getOtherAction(String[] tokens) {
+        if(tokens[0].equals("met") && tokens[1].equals("en") && tokens[2].equals("boucle")) return "shuffle";
+        String prec = tokens[0];
+        for(String token : tokens) {
+            if(prec.equals("aime")) {
+                if (token.equals("pas")) return "dislike";
+                return "like";
+            }
+            prec = token;
+        }
+        if (prec.equals("aime")) return "like";
+        return null;
     }
 
     public String getObject(String[] tokens, String action) {
@@ -61,7 +88,7 @@ class NLP {
                 }
             }
         }
-        result.delete(result.length() - 1, result.length());
+        if(result.charAt(result.length() - 1) == 32) result.deleteCharAt(result.length() - 1);
         return result.toString();
     }
 }
