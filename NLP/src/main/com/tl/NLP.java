@@ -1,44 +1,35 @@
 package com.tl;
 
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.Collections;
-import java.util.List;
-import java.util.stream.Stream;
+import java.util.*;
 import java.text.Normalizer;
 
 class NLP {
 
-    private final List <String> keywords;
-
-    public NLP() {
-        keywords = getKeywords();
-    }
+    private final String[] prepositions = {"A", "dans", "par", "pour", "vers", "avec", "de", "sans", "sous"};
+    private final String[] determiantns = {"du", "de", "un", "une", "le", "la", "l", "les", "des"};
 
     /**
      * https://stackoverflow.com/a/15190787
      */
-    public static String stripAccents(String s)
+    public String stripAccents(String s)
     {
         s = Normalizer.normalize(s, Normalizer.Form.NFD);
         s = s.replaceAll("[\\p{InCombiningDiacriticalMarks}]", "");
         return s;
     }
 
-    public List<String> getKeywords() {
-        try (Stream<String> stream = Files.lines(Paths.get("NLP/src/Ressources/keywords.txt"))) {
-            return stream.toList();
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        return Collections.emptyList();
+    public String[] removeUnwantedWords(String[] tokens) {
+        LinkedList<String> tmp = new LinkedList<>(Arrays.asList(tokens));
+        tmp.removeAll(Arrays.asList(determiantns));
+        tmp.removeAll(Arrays.asList(prepositions));
+        return tmp.toArray(new String[0]);
     }
 
     public Result coupleActionObjetDepuisPhrase(String phraseEntree) {
         Result res = new Result();
         // - Caractères spéciaux, majuscules -> minuscules puis tokenisation
         String[] tokens = stripAccents(phraseEntree).replaceAll("[^a-zA-Z0-9]+", " ").toLowerCase().split(" ");
-
+        tokens = removeUnwantedWords(tokens);
         String action = getAction(tokens);
         if(action != null) {
             res.addAction(action);
@@ -79,16 +70,15 @@ class NLP {
 
     public String getObject(String[] tokens, String action) {
         if(action == null || !action.equals("play")) return null;
+        List<String> tmp = new ArrayList<>(Arrays.asList(tokens));
+        tmp.remove(0);
+
         StringBuilder result = new StringBuilder();
-        for(String token : tokens) {
-            for (String keyword : keywords) {
-                if (token.equals(keyword)) {
-                    result.append(keyword);
-                    result.append(" ");
-                }
-            }
+        for(String token : tmp) {
+            result.append(token);
+            result.append(" ");
         }
-        if(result.charAt(result.length() - 1) == 32) result.deleteCharAt(result.length() - 1);
+        if(result.length() != 0 && result.charAt(result.length() - 1) == 32) result.deleteCharAt(result.length() - 1);
         return result.toString();
     }
 }

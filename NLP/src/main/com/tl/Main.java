@@ -2,8 +2,8 @@ package com.tl;
 
 public class Main {
     public static void main(String[] args) {
-        NLP nlp = new NLP();
-        System.out.println(nlp.getKeywords());
-        System.out.println("Main");
+        if(args.length == 0) System.exit(-1);
+        System.out.println(new NLP().coupleActionObjetDepuisPhrase(args[0]).toString());
+        System.exit(0);
     }
 }
