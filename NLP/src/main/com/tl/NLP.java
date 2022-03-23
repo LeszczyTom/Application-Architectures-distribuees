@@ -1,4 +1,4 @@
-package tl;
+package com.tl;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -7,6 +7,12 @@ import java.util.List;
 import java.util.stream.Stream;
 
 class NLP {
+
+    private final List <String> keywords;
+
+    public NLP() {
+        keywords = getKeywords();
+    }
 
     public List<String> getKeywords() {
         try (Stream<String> stream = Files.lines(Paths.get("NLP/src/Ressources/keywords.txt"))) {
@@ -46,7 +52,16 @@ class NLP {
 
     public String getObject(String[] tokens, String action) {
         if(action == null || !action.equals("play")) return null;
-
-        return tokens[0];
+        StringBuilder result = new StringBuilder();
+        for(String token : tokens) {
+            for (String keyword : keywords) {
+                if (token.equals(keyword)) {
+                    result.append(keyword);
+                    result.append(" ");
+                }
+            }
+        }
+        result.delete(result.length() - 1, result.length());
+        return result.toString();
     }
 }
