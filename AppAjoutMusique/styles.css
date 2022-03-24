@@ -21,3 +21,7 @@ body {
     margin: 10px auto 0 auto;
 }
 
+.form {
+   display: table;
+}
+
