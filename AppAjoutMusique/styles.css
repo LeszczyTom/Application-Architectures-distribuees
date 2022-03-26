@@ -1,12 +1,29 @@
+/* roboto-regular - latin */
+@font-face {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    src: local(''),
+    url('./fonts/roboto-v29-latin-regular.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+    url('./fonts/roboto-v29-latin-regular.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+
+p, label{ user-select: none;}
+
 body {
     margin: 0;
+    font-family: 'Roboto', serif;
 }
 
 .mainContent {
-    width: 600px;
-    height: 800px;
+    width: 400px;
+    height: 500px;
     display: flex;
     flex-direction: column;
+    transform: scale(0.99);
+    border-radius: 8px;
+    background-color: white;
+    overflow: hidden;
 }
 
 .mainContent *{
@@ -15,13 +32,60 @@ body {
 }
 
 .horizontalLine {
-    border-top: 1px solid lightgrey;
+    border-top: 1px solid #A3A3A3;
     height: 0;
     width: 88%;
-    margin: 10px auto 0 auto;
+    margin: 10px auto 11px auto;
 }
 
 .form {
-   display: table;
+    display: flex;
+    flex-direction: column;
+    font-size: 22px;
 }
 
+.formLabel {
+    margin: 10px 0 10px 0;
+}
+
+.formInput {
+    height: 35px;
+    margin: 0 0 10px 0;
+    border-radius: 10px;
+    border: 2px solid #E2E2E2;
+    padding-left: 10px;
+}
+
+.formInput:focus {
+    outline: #0084ff solid 2px;
+}
+
+.title {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    vertical-align: center;
+    line-height: 40px;
+    height: 40px;
+    -webkit-app-region:drag;
+}
+
+#Ajouter {
+    margin-top: 33px;
+    color: white;
+    background-color: #0084ff;
+    height: 45px;
+    font-size: 18px;
+}
+
+.closeButton {
+    height: 40px;
+    width: 40px;
+    margin: 0;
+    border-radius: 100%;
+    border: 1px solid #E2E2E2;
+    background-color: white;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}

@@ -2,35 +2,29 @@
 
 <!DOCTYPE html>
 <html lang="fr">
-<head>
-	<meta charset="UTF-8">
-	<!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
-	<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
-	<title>Hello World!</title>
-	<link rel="stylesheet" href="styles.css">
-</head>
-<body>
-	<!-- recherche dynamique -->
-	<div class="mainContent">
-		<h1> Ajouter une musique </h1>
-		<div class="horizontalLine"> </div>
-		<form action="" method="post" class="form">
-		<div>
-			<label for="Titre">Titre: </label>
-			<input type="Titre" name="Titre" id="Titre" required>
-		</div>
-		<div>
-			<label for="Artiste">Artiste: </label>
-			<input type="Artiste" name="Artiste" id="Artiste" required>
-		</div>
-		<div>
-			<label for="Album">Album: </label>
-			<input id="Album" type="Album" name="Album">
-		</div>
-		<div>
-			<input type="submit" value="Envoyer!">
-		</div>
-		</form>
-	</div>
-</body>
+    <head>
+        <meta charset="UTF-8">
+        <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
+        <meta http-equiv="Content-Security-Policy">
+        <title>Hello World!</title>
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+        <!-- recherche dynamique -->
+        <div class="mainContent">
+            <p class="title"> Ajouter une musique </p>
+            <button class="closeButton"> X </button>
+            <div class="horizontalLine"> </div>
+            <div class="form">
+                <label class="formLabel" for="Titre">Titre </label>
+                <input class="formInput" type="text" name="Titre" id="Titre" placeholder="Music Sounds Better With You" required>
+                <label class="formLabel" for="Artiste">Artiste </label>
+                <input class="formInput" type="text" name="Artiste" id="Artiste" placeholder="Stardust" required>
+                <label class="formLabel" for="Album">Album </label>
+                <input class="formInput" id="Album" type="text" name="Album">
+                <Button class="formInput" id="Ajouter" value="Ajouter"> Ajouter </Button>
+            </div>
+        </div>
+        <script src="renderer.js"></script>
+    </body>
 </html>
