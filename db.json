@@ -1,0 +1,14 @@
+{
+  "meta": {
+    "tag": "cat",
+    "id": 0
+  },
+  "contents":
+    {
+      "title": "title",
+      "artist": "artist",
+      "album": "album",
+      "url": "musicurl",
+      "img": "imgurl"
+    }
+}
