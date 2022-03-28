@@ -17,6 +17,17 @@ const createWindow = () => {
 			preload: path.join(__dirname, 'preload.js')
 		}
 	})
+
+	ipcMain.on('send-from', (event, data) => {
+		console.log(data)
+	})
+
+	ipcMain.on('close-window', (event, data) => {
+		mainWindow.close()
+		console.log("Close button pressed.")
+		console.log("Closing the window ....")
+	})
+
 	mainWindow.removeMenu()
 	// and load the index.html of the app.
 	mainWindow.loadFile('index.html')
@@ -48,7 +59,3 @@ app.on('window-all-closed', () => {
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
 
-ipcMain.on('test', function (event, arg) {
-	console.log(arg)
-})
-console.log("e")

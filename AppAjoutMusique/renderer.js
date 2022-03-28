@@ -1,10 +1,12 @@
-/*const ipc = require('electron').ipcRenderer;
-
-ipc.send('test', "RRRR")
-*/
-    /*let data = {
+const setButton = document.getElementById('Ajouter')
+setButton.addEventListener('click', () => {
+    let data = {
         titre: document.getElementById("Titre").value,
         artiste: document.getElementById("Artiste").value,
         album: document.getElementById("Album").value,
     }
-    ipcRenderer.send('submitForm', data);*/
+    window.electronAPI.sendForm(data)
+});
+
+const closeButton = document.getElementById('closeButton')
+closeButton.addEventListener('click', () => { window.electronAPI.closeWin("t") });

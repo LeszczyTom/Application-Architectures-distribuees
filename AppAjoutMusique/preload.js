@@ -1,13 +1,10 @@
-// preload.js
-
-// All of the Node.js APIs are available in the preload process.
-// It has the same sandbox as a Chrome extension.
-
 const { contextBridge, ipcRenderer } = require('electron')
 
-contextBridge.exposeInMainWorld('electronAPI',{
-	openFile: () => ipcRenderer.invoke('dialog:openFile')
+contextBridge.exposeInMainWorld('electronAPI', {
+	sendForm: (data) => ipcRenderer.send('send-from', data),
+	closeWin: () => ipcRenderer.send('close-window', )
 })
+
 
 window.addEventListener('DOMContentLoaded', () => {
 	const replaceText = (selector, text) => {

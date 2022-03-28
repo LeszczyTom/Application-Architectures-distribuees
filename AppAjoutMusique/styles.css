@@ -68,6 +68,7 @@ body {
     line-height: 40px;
     height: 40px;
     -webkit-app-region:drag;
+    width: 300px;
 }
 
 #Ajouter {
