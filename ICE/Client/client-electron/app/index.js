@@ -2,6 +2,8 @@ const path = require('path');
 
 const { app, BrowserWindow } = require('electron');
 const isDev = require('electron-is-dev');
+const Stream = require("node-rtsp-stream");
+const sound = require("sound-play");
 
 function createWindow() {
     // Create the browser window.
@@ -45,3 +47,15 @@ app.on('activate', () => {
         createWindow();
     }
 });
+let stream = new Stream({
+    name: 'test-stream',
+    streamUrl: 'rtsp://@127.0.0.1:5555/demo',
+    wsPort: 8084,
+});
+
+app.commandLine.appendSwitch("autoplay-policy", "no-user-gesture-required")
+
+
+//console.log("test1")
+//sound.play("/home/tom/Musique/music-sounds-better-with-you.mp3", 1).then(() => console.log("done"));
+//console.log("test2")

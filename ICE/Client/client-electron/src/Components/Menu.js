@@ -4,7 +4,7 @@ import filter from "../Ressources/filter_alt_white_24dp.svg";
 
 function Menu() {
     return (
-        <div className={"flex flex-row h-[75px]"}>
+        <div className={"flex h-[75px] mt-2"}>
             <img src={logo} alt="logo" width={"45"} className={"mx-4"}/>
             <div className={"flex flex-row h-[45px] w-full my-auto mr-4 rounded-3xl border-neutral-600 px-2 border-2 bg-neutral-800"}>
                 <svg height={30} width={40} className={"my-auto mx-1"}>
