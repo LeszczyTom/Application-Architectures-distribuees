@@ -6,8 +6,8 @@ const isDev = require('electron-is-dev');
 function createWindow() {
     // Create the browser window.
     const win = new BrowserWindow({
-        width: 800,
-        height: 600,
+        width: 1200,
+        height: 700,
         webPreferences: {
             nodeIntegration: true,
         },
@@ -20,10 +20,10 @@ function createWindow() {
             ? 'http://localhost:3000'
             : `file://${path.join(__dirname, '../build/index.html')}`
     );
-    /*// Open the DevTools.
+    // Open the DevTools.
     if (isDev) {
         win.webContents.openDevTools({ mode: 'detach' });
-    }*/
+    }
 }
 
 // This method will be called when Electron has finished
