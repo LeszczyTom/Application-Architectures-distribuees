@@ -110,7 +110,7 @@ function MusicList() {
                     </div>
                 </div>
                 <div className={"border-b rounded-b-full border-b-neutral-800 my-2"}/>
-                <div id={"musicList"} className={"overflow-y-scroll h-[460px]"}>
+                <div id={"musicList"} className={"overflow-y-scroll h-[469px]"}>
                 {
                     Object.keys(musiques).map((key) => {
                         return (
