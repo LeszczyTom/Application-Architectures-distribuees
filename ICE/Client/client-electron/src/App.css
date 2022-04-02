@@ -2,10 +2,39 @@
 @tailwind components;
 @tailwind utilities;
 
-.App {
-  text-align: center;
+/* roboto-regular - latin */
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  src: local(''),
+  url('./Ressources/fonts/roboto-v29-latin-regular.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+
+#root {
+  font-family: 'Roboto', serif;
 }
 
 input {
   outline: none;
+}
+
+input[type=range] {
+  height: 8px;
+  -webkit-appearance: none;
+  background: rgb(82,82,82);
+  outline: none;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: inset 0 0 5px rgb(82,82,82);
+}
+
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: white;
+  cursor: pointer;
+  box-shadow: -407px 0 0 400px white;
 }

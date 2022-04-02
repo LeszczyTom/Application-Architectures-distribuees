@@ -1,6 +1,6 @@
 import React from 'react';
-import logo from "../Ressources/realm-seeklogo.svg";
-import filter from "../Ressources/filter_alt_white_24dp.svg";
+import logo from "../Ressources/icons/realm-seeklogo.svg";
+import filter from "../Ressources/icons/filter_alt_white_24dp.svg";
 
 function Menu() {
     return (
