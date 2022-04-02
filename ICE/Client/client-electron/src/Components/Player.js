@@ -58,7 +58,7 @@ function Player() {
 
     return (
         <>
-            <div className={"flex bg-neutral-800 w-full h-[90px] mb-0 rounded-t-2xl"}>
+            <div className={"flex bg-neutral-800 w-full h-[90px] mb-0 border-t border-neutral-600"}>
                 <video datatype={"audio/mp3"} src={"http://127.0.0.1:5555"} className={"w-0 h-0"}/>
                 <img src={"https://picsum.photos/50"} className={"h-[50px] my-auto ml-5 mr-2 rounded-xl hover:cursor-pointer"} alt={"album musique joué"}/>
                 <div className={"flex text-white my-auto ml-2 text-sm w-[150px]"}>
