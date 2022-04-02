@@ -95,7 +95,7 @@ const musiques = {
     }
 
 }
-function MusicList() {
+function MusicList(props) {
 
     return (
         <div className={"h-full m-4"}>
@@ -137,6 +137,10 @@ function MusicList() {
                         )
                     })
                 }
+                <div className={"m-auto my-4 w-fit bg-neutral-800 rounded-full py-3 px-9 text-white hover:cursor-pointer"}
+                onClick={() => props.setAddMusic(true)}>
+                    Ajouter une musique
+                </div>
                 </div>
             </div>
         </div>

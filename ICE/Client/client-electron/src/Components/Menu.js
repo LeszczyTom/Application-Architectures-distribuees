@@ -2,10 +2,10 @@ import React from 'react';
 import logo from "../Ressources/icons/realm-seeklogo.svg";
 import filter from "../Ressources/icons/filter_alt_white_24dp.svg";
 
-function Menu() {
+function Menu(props) {
     return (
         <div className={"flex h-[75px] mt-2"}>
-            <img src={logo} alt="logo" width={"45"} className={"mx-4"}/>
+            <img src={logo} alt="logo" width={"45"} className={"mx-4 hover:cursor-pointer"} onClick={() => props.setAddMusic(false)}/>
             <div className={"flex flex-row h-[45px] w-full my-auto mr-4 rounded-3xl border-neutral-600 px-2 border-2 bg-neutral-800"}>
                 <svg height={30} width={40} className={"my-auto mx-1"}>
                     <circle cx="15" cy="15" r="10" fill={"white"}/>
@@ -20,6 +20,12 @@ function Menu() {
                     <p className={"text-white my-auto px-1 "}>Filtres</p>
                 </div>
             </div>
+            {
+                props.addMusic ? "" :   <div className={"flex text-white w-[230px] h-[45px] m-auto rounded-full bg-neutral-800 border-neutral-600 border-2 mr-4 hover:cursor-pointer hover:border-[#1DB954]"}
+                                             onClick={() => props.setAddMusic(true)}>
+                                            <p className={"m-auto"}>Ajouter une musique</p>
+                                        </div>
+            }
         </div>
     );
 }
