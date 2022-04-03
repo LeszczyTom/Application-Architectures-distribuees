@@ -3,8 +3,8 @@ import React from 'react';
 function AddMusic() {
     const [file, setFile] = React.useState("");
     return (
-        <div className={"h-full m-4 border"}>
-            <div className={"flex flex-col mx-[300px] h-[450px] p-4 mt-6 text-white"}>
+        <div className={"h-full m-4 flex"}>
+            <div className={"flex flex-col mx-[300px] p-4 my-auto text-white"}>
                 <input type={"text"} placeholder={"Titre"} className={"mt-4 h-[40px] bg-neutral-800 rounded-lg border-2 bg-black border border-neutral-600 px-3 focus:border-[#1DB954]"}/>
                 <input type={"text"} placeholder={"Artiste"} className={"mt-4 h-[40px] bg-neutral-800 rounded-lg border-2 bg-black border border-neutral-600 px-3 focus:border-[#1DB954]"}/>
                 <input type={"text"} placeholder={"Album"} className={"mt-4 h-[40px] bg-neutral-800 rounded-lg border-2 bg-black border border-neutral-600 px-3 focus:border-[#1DB954]"}/>
