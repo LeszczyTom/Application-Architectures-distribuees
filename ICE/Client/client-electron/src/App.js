@@ -10,7 +10,7 @@ function App() {
     const [currentView, setCurrentView] = React.useState("musicList");
 
     return (
-    <div className="h-screen bg-black flex flex-col">
+    <div className="h-screen bg-black flex flex-col select-none ">
         <Menu setView={setCurrentView} view={currentView}/>
         {currentView === "musicList" && <MusicList setView={setCurrentView} view={currentView}/>}
         {currentView === "addMusic" && <AddMusic setView={setCurrentView} view={currentView}/>}

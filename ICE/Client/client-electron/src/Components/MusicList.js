@@ -106,7 +106,7 @@ function MusicList(props) {
                     <div className={"text-left w-[435px]"}>ALBUM</div>
                     <div className={"w-[20px]"}/>
                     <div className={"w-[100px]"}>
-                        <img src={clock} className={"h-[20px] m-auto"} alt={"clock icon"}/>
+                        <img draggable={false} src={clock} className={"h-[20px] m-auto"} alt={"clock icon"}/>
                     </div>
                 </div>
                 <div className={"border-b rounded-b-full border-b-neutral-800 my-2"}/>
@@ -117,7 +117,7 @@ function MusicList(props) {
                             <div className={"flex mt-2 text-sm hover:cursor-pointer"} onClick={() => props.setView("songInfos")}>
                                 <div className={"my-auto w-[15px] text-center ml-2"}>{musiques[key].id}</div>
                                 <div className={"flex w-[570px] ml-3"}>
-                                    <img src={musiques[key].cover} className={"h-[45px]"} alt={"cover album"}/>
+                                    <img draggable={false} src={musiques[key].cover} className={"h-[45px]"} alt={"cover album"}/>
                                     <div className={"flex flex-col ml-3"}>
                                         <p className={"text-white my-auto text-base"}>{musiques[key].title}</p>
                                         <p className={"my-auto"}>{musiques[key].artist}</p>
@@ -127,7 +127,7 @@ function MusicList(props) {
                                 {
                                     musiques[key].favorite ?
                                         <div className={"w-[20px] my-auto"}>
-                                            <img src={favorite} className={"h-[20px] m-auto"} alt={"favorite icon"}/>
+                                            <img draggable={false} src={favorite} className={"h-[20px] m-auto"} alt={"favorite icon"}/>
                                         </div>
                                         :
                                         <div className={"w-[20px] my-auto"}/>
