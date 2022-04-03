@@ -1,6 +1,8 @@
 import React from 'react';
 import clock from "../Ressources/icons/schedule_white_24dp.svg"
 import favorite from "../Ressources/icons/favorite_green_24dp.svg"
+import moreHoriz from "../Ressources/icons/more_horiz_white_24dp.svg"
+import play from "../Ressources/icons/play_arrow_white_24dp.svg"
 
 const musiques = {
     "1": {
@@ -97,6 +99,8 @@ const musiques = {
 }
 function MusicList(props) {
 
+    const [hover, setHover] = React.useState("-1");
+
     const handleOnClick = (musique) => {
         props.setView("songInfos")
         props.setSong({
@@ -105,6 +109,15 @@ function MusicList(props) {
             album: musique.album,
             cover: musique.cover,
             fileURI: "https://picsum.photos/45"
+        })
+    }
+
+    const handlePlayButton = (musique) => {
+        props.setPlay({
+            title: musique.title,
+            artist: musique.artist,
+            cover: musique.cover,
+            favorite: musique.favorite,
         })
     }
 
@@ -125,8 +138,17 @@ function MusicList(props) {
                 {
                     Object.keys(musiques).map((key) => {
                         return (
-                            <div className={"flex mt-2 text-sm hover:cursor-pointer"} onClick={() => handleOnClick(musiques[key])}>
-                                <div className={"my-auto w-[15px] text-center ml-2"}>{musiques[key].id}</div>
+                            <div className={"flex mt-2 py-1 rounded-lg text-sm hover:bg-neutral-800"}
+                                 onMouseEnter={() => setHover(key)}
+                                 onMouseLeave={() => setHover("-1")}>
+                                {
+                                    hover === key ?
+                                        <div className={"w-[23px] flex hover:cursor-pointer"} onClick={() => handlePlayButton(musiques[key])}>
+                                            <img draggable={false} src={play} className={"h-[30px] ml-2 my-auto"} alt={"play icon"}/>
+                                        </div>
+                                        :
+                                        <div className={"my-auto w-[15px] text-center ml-2"}>{musiques[key].id}</div>
+                                }
                                 <div className={"flex w-[570px] ml-3"}>
                                     <img draggable={false} src={musiques[key].cover} className={"h-[45px]"} alt={"cover album"}/>
                                     <div className={"flex flex-col ml-3"}>
@@ -143,7 +165,12 @@ function MusicList(props) {
                                         :
                                         <div className={"w-[20px] my-auto"}/>
                                 }
-                                <div className={"w-[100px] text-center my-auto"}>{musiques[key].duration}</div>
+                                <div className={"w-[60px] text-right my-auto"}>{musiques[key].duration}</div>
+                                <div className={"w-[38px] flex"}>
+                                    <img className={"w-[20px] m-auto hover:cursor-pointer"}
+                                         draggable={false} src={moreHoriz}
+                                         onClick={() => handleOnClick(musiques[key])} alt={"option"}/>
+                                </div>
                             </div>
                         )
                     })
