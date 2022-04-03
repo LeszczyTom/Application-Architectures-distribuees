@@ -4,14 +4,17 @@ import Menu from "./Components/Menu";
 import Player from "./Components/Player";
 import MusicList from "./Components/MusicList";
 import AddMusic from "./Components/AddMusic";
+import SongInfos from "./Components/SongInfos";
 
 function App() {
-    const [addMusic, setAddMusic] = React.useState(false);
+    const [currentView, setCurrentView] = React.useState("musicList");
 
     return (
     <div className="h-screen bg-black flex flex-col">
-        <Menu setAddMusic={setAddMusic} addMusic={addMusic}/>
-        {addMusic ? <AddMusic /> : <MusicList setAddMusic={setAddMusic}/>}
+        <Menu setView={setCurrentView} view={currentView}/>
+        {currentView === "musicList" && <MusicList setView={setCurrentView} view={currentView}/>}
+        {currentView === "addMusic" && <AddMusic setView={setCurrentView} view={currentView}/>}
+        {currentView === "songInfos" && <SongInfos setView={setCurrentView} view={currentView}/>}
         <Player />
     </div>
     );

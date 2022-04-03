@@ -110,11 +110,11 @@ function MusicList(props) {
                     </div>
                 </div>
                 <div className={"border-b rounded-b-full border-b-neutral-800 my-2"}/>
-                <div id={"musicList"} className={"overflow-y-scroll h-[469px]"}>
+                <div id={"musicList"} className={"overflow-y-scroll h-[468px]"}>
                 {
                     Object.keys(musiques).map((key) => {
                         return (
-                            <div className={"flex mt-2 text-sm hover:cursor-pointer"}>
+                            <div className={"flex mt-2 text-sm hover:cursor-pointer"} onClick={() => props.setView("songInfos")}>
                                 <div className={"my-auto w-[15px] text-center ml-2"}>{musiques[key].id}</div>
                                 <div className={"flex w-[570px] ml-3"}>
                                     <img src={musiques[key].cover} className={"h-[45px]"} alt={"cover album"}/>
@@ -138,7 +138,7 @@ function MusicList(props) {
                     })
                 }
                 <div className={"m-auto my-4 w-fit bg-neutral-800 rounded-full py-3 px-9 text-white hover:cursor-pointer"}
-                onClick={() => props.setAddMusic(true)}>
+                onClick={() => props.setView("addMusic")}>
                     Ajouter une musique
                 </div>
                 </div>
