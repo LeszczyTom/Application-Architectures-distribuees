@@ -97,6 +97,17 @@ const musiques = {
 }
 function MusicList(props) {
 
+    const handleOnClick = (musique) => {
+        props.setView("songInfos")
+        props.setSong({
+            title: musique.title,
+            artist: musique.artist,
+            album: musique.album,
+            cover: musique.cover,
+            fileURI: "https://picsum.photos/45"
+        })
+    }
+
     return (
         <div className={"h-full m-4"}>
             <div className={"flex flex-col text-gray-400"}>
@@ -114,7 +125,7 @@ function MusicList(props) {
                 {
                     Object.keys(musiques).map((key) => {
                         return (
-                            <div className={"flex mt-2 text-sm hover:cursor-pointer"} onClick={() => props.setView("songInfos")}>
+                            <div className={"flex mt-2 text-sm hover:cursor-pointer"} onClick={() => handleOnClick(musiques[key])}>
                                 <div className={"my-auto w-[15px] text-center ml-2"}>{musiques[key].id}</div>
                                 <div className={"flex w-[570px] ml-3"}>
                                     <img draggable={false} src={musiques[key].cover} className={"h-[45px]"} alt={"cover album"}/>
