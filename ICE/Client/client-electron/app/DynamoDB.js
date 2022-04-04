@@ -10,7 +10,7 @@ AWS.config.update({
 const dynamoDB = new AWS.DynamoDB()
 const dbName = "Middleware_Musiques"
 
-async function selectAllFromDB() {
+export async function selectAllFromDB() {
     await dynamoDB
         .executeStatement({
             Statement: `SELECT * FROM ${dbName}`,
@@ -21,7 +21,7 @@ async function selectAllFromDB() {
         })
 }
 
-async function addToDb(id, Album, Artist, SongTitle, Duration, Cover, Favorite) {
+export async function addToDb(id, Album, Artist, SongTitle, Duration, Cover, Favorite) {
     const cmd = `INSERT INTO ${dbName} VALUE ({
                                                 'id': '${id}', 
                                                 'Album': '${Album}', 
@@ -40,7 +40,7 @@ async function addToDb(id, Album, Artist, SongTitle, Duration, Cover, Favorite) 
         })
 }
 
-async function deleteFromDb(id) {
+export async function deleteFromDb(id) {
     const cmd = `DELETE FROM ${dbName} WHERE id = '${id}';`
     console.log(cmd)
     await dynamoDB
@@ -52,7 +52,7 @@ async function deleteFromDb(id) {
         })
 }
 
-async function selectSongFromDbById(id) {
+export async function selectSongFromDbById(id) {
     const cmd = `SELECT * FROM ${dbName} WHERE id = '${id}';`
     await dynamoDB
         .executeStatement({
@@ -63,7 +63,7 @@ async function selectSongFromDbById(id) {
         })
 }
 
-async function selectSongFromDbByTitle(title) {
+export async function selectSongFromDbByTitle(title) {
     const cmd = `SELECT * FROM ${dbName} WHERE SongTitle = '${title}';`
     await dynamoDB
         .executeStatement({
