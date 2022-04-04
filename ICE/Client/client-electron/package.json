@@ -11,6 +11,8 @@
     "@testing-library/jest-dom": "^5.16.3",
     "@testing-library/react": "^12.1.4",
     "@testing-library/user-event": "^13.5.0",
+    "aws-sdk": "^2.1106.0",
+    "dotenv": "^16.0.0",
     "jsmpeg": "^1.0.0",
     "node-rtsp-stream": "^0.0.9",
     "react": "^18.0.0",
@@ -26,7 +28,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "dev": "concurrently -k \"BROWSER=none npm start\" \"npm:electron\"",
-    "electron": "wait-on tcp:3000 && electron ."
+    "electron": "wait-on tcp:3000 && electron .",
+    "elec": "electron ."
   },
   "eslintConfig": {
     "extends": [
