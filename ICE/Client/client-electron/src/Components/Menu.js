@@ -1,8 +1,14 @@
 import React from 'react';
 import logo from "../Ressources/icons/realm-seeklogo.svg";
 import filter from "../Ressources/icons/filter_alt_white_24dp.svg";
+import sync from "../Ressources/icons/sync_white_24dp.svg";
 
 function Menu(props) {
+
+    const handleSyncAction = () => {
+        props.selectAllFromDb()
+    }
+
     return (
         <div className={"flex h-[75px] mt-2"}>
             <img draggable={false} src={logo} alt="logo" width={"45"} className={"mx-4 hover:cursor-pointer"} onClick={() => props.setView("musicList")}/>
@@ -26,6 +32,7 @@ function Menu(props) {
                                             <p className={"m-auto"}>Ajouter une musique</p>
                                         </div>
             }
+            <img src={sync} width={40} className={"mr-4 hover:cursor-pointer"} alt={"Sync button"} draggable={false} onClick={() => handleSyncAction()}/>
         </div>
     );
 }

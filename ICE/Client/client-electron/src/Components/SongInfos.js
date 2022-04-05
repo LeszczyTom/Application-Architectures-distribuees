@@ -1,5 +1,5 @@
 import React from 'react';
-
+import deleteIcon from '../Ressources/icons/delete_red_24dp.svg';
 function SongInfos(props) {
     const [title, setTitle] = React.useState(props.song.title);
     const [artist, setArtist] = React.useState(props.song.artist);
@@ -10,6 +10,12 @@ function SongInfos(props) {
     const cleanUpFileName = (fileName) => {
         let tmp = fileName.split("\\");
         return tmp[tmp.length - 1];
+    }
+
+    const handleDeleteAction = () => {
+        props.deleteSong(props.song.id);
+        if(props.error) return alert("Error while deleting song");
+        props.setView("musicList");
     }
 
     return (
@@ -47,7 +53,10 @@ function SongInfos(props) {
                         <p className={"my-auto overflow-hidden whitespace-nowrap overflow-ellipsis"}>{cleanUpFileName(fileURI)}</p>
                     </div>
                 </div>
-                <input type={"submit"} value={"Modifier la musique"} className={"mt-8 h-[40px] bg-neutral-800 rounded-lg border-2 bg-black border border-neutral-600 px-3 hover:border-[#1DB954] w-[50%] m-auto"}/>
+                <div className={"flex m-auto mt-8"}>
+                    <input type={"submit"} value={"Modifier la musique"} className={"h-[40px] bg-neutral-800 rounded-lg border-2 bg-black border border-neutral-600 px-3 hover:border-[#1DB954] w-[230px]"}/>
+                    <img src={deleteIcon} alt={"delete icon"} width={40} className={"ml-4 hover:cursor-pointer"} onClick={() => handleDeleteAction()}/>
+                </div>
             </div>
         </div>
     );
