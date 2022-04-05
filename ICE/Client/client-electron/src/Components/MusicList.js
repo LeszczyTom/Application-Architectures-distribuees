@@ -15,17 +15,23 @@ function MusicList(props) {
             artist: musique.Artist.S,
             album: musique.Album.S,
             cover: musique.Cover.S,
-            fileURI: musique.Cover.S,
+            fileURI: "",
+            duration: musique.Duration.S,
+            favorite: musique.Favorite.S,
         })
         props.setView("songInfos")
     }
 
     const handlePlayButton = (musique) => {
         props.setPlay({
+            id: musique.id.S,
             title: musique.SongTitle.S,
             artist: musique.Artist.S,
+            album: musique.Album.S,
             cover: musique.Cover.S,
-            favorite: musique.Favorite.S === "True",
+            fileURI: "",
+            duration: musique.Duration.S,
+            favorite: musique.Favorite.S,
         })
     }
 
@@ -67,7 +73,7 @@ function MusicList(props) {
                                 </div>
                                 <div className={"w-[435px] my-auto"}>{props.musiques.Items[key].Album.S}</div>
                                 {
-                                    props.musiques.Items[key].Favorite.S === "True" ?
+                                    props.musiques.Items[key].Favorite.S === "true" ?
                                         <div className={"w-[20px] my-auto"}>
                                             <img draggable={false} src={favorite} className={"h-[20px] m-auto"} alt={"favorite icon"}/>
                                         </div>

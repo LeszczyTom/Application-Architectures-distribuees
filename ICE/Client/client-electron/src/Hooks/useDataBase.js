@@ -24,7 +24,7 @@ function useDataBase() {
 
     const addToDb = (album, artist, duration, cover, title) => {
         setLoading(true);
-        fetch(`http://localhost:2222/addToDb?album=${album}&artist=${artist}&duration=${duration}&favorite=$false&cover=${cover}&title=${title}`)
+        fetch(`http://localhost:2222/addToDb?album=${album}&artist=${artist}&duration=${duration}&favorite=false&cover=${cover}&title=${title}`)
             .then(response => response.json())
             .then(() => {
                 setLoading(false);
@@ -39,6 +39,20 @@ function useDataBase() {
     const deleteFromDbById = (id) => {
         setLoading(true);
         fetch(`http://localhost:2222/deleteFromDbById/${id}`)
+            .then(response => response.json())
+            .then(() => {
+                setLoading(false);
+                setChanged(true)
+            })
+            .catch(e => {
+                setError(e);
+                setLoading(false);
+            });
+    }
+
+    const updateFromDbById = (id, album, artist, duration, cover, title, favorite) => {
+        setLoading(true);
+        fetch(`http://localhost:2222/updateSongInDbById/${id}?album=${album}&artist=${artist}&duration=${duration}&favorite=${favorite}&cover=${cover}&title=${title}`)
             .then(response => response.json())
             .then(() => {
                 setLoading(false);
@@ -73,7 +87,8 @@ function useDataBase() {
         loading,
         selectAllFromDb,
         addToDb,
-        deleteFromDbById
+        deleteFromDbById,
+        updateFromDbById
     };
 }
 

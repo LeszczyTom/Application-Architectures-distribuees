@@ -1,10 +1,15 @@
 import React from 'react';
 import deleteIcon from '../Ressources/icons/delete_red_24dp.svg';
+import favoriteEmpty from '../Ressources/icons/favorite_border_white_24dp.svg';
+import favoriteGreen from '../Ressources/icons/favorite_green_24dp.svg';
+
 function SongInfos(props) {
     const [title, setTitle] = React.useState(props.song.title);
     const [artist, setArtist] = React.useState(props.song.artist);
     const [album, setAlbum] = React.useState(props.song.album);
     const [cover, setCover] = React.useState(props.song.cover);
+    const [duree, setDuree] = React.useState(props.song.duration);
+    const [favorite, setFavorite] = React.useState(props.song.favorite);
     const [fileURI, setFileURI] = React.useState(props.song.fileURI);
 
     const cleanUpFileName = (fileName) => {
@@ -16,6 +21,16 @@ function SongInfos(props) {
         props.deleteSong(props.song.id);
         if(props.error) return alert("Error while deleting song");
         props.setView("musicList");
+    }
+
+    const handleUpdateAction = () => {
+        props.updateSong(props.song.id, album, artist, duree, cover, title, favorite);
+        if(props.error) return alert("Error while updating song");
+        props.setView("musicList");
+    }
+
+    const handleFavoriteAction = () => {
+        favorite === "true" ? setFavorite("false") : setFavorite("true");
     }
 
     return (
@@ -46,6 +61,11 @@ function SongInfos(props) {
                        value={cover}
                        onChange={(event) => setCover(event.target.value)}
                        className={"mt-4 h-[40px] bg-neutral-800 rounded-lg border-2 bg-black border border-neutral-600 px-3 focus:border-[#1DB954]"}/>
+                <input type={"text"}
+                       placeholder={"Durée"}
+                       value={duree}
+                       onChange={(event) => setDuree(event.target.value)}
+                       className={"mt-4 h-[40px] bg-neutral-800 rounded-lg border-2 bg-black border border-neutral-600 px-3 focus:border-[#1DB954]"}/>
                 <div className={"flex w-full mt-4"}>
                     <label htmlFor={"fileMusic"} className={"my-auto w-[180px] hover:cursor-pointer hover:text-[#1DB954]"}>Choisir un fichier MP3: </label>
                     <input id={"fileMusic"} type={"file"} className={"hidden"}  accept={".mp3"} onChange={(event) => setFileURI(event.target.value)}/>
@@ -54,8 +74,9 @@ function SongInfos(props) {
                     </div>
                 </div>
                 <div className={"flex m-auto mt-8"}>
-                    <input type={"submit"} value={"Modifier la musique"} className={"h-[40px] bg-neutral-800 rounded-lg border-2 bg-black border border-neutral-600 px-3 hover:border-[#1DB954] w-[230px]"}/>
-                    <img src={deleteIcon} alt={"delete icon"} width={40} className={"ml-4 hover:cursor-pointer"} onClick={() => handleDeleteAction()}/>
+                    <img src={favorite === "false" ? favoriteEmpty : favoriteGreen} alt={"like btn"} width={40} className={"hover:cursor-pointer"} onClick={() => handleFavoriteAction()}/>
+                    <input type={"submit"} value={"Modifier la musique"} className={"h-[40px] bg-neutral-800 rounded-lg border-2 bg-black border border-neutral-600 px-3 hover:border-[#1DB954] w-[230px] ml-8"} onClick={() => handleUpdateAction()}/>
+                    <img src={deleteIcon} alt={"delete icon"} width={40} className={"ml-8 hover:cursor-pointer"} onClick={() => handleDeleteAction()}/>
                 </div>
             </div>
         </div>

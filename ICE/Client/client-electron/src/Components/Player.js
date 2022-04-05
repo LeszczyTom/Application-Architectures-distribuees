@@ -23,7 +23,7 @@ function Player(props) {
     const [muted, setMuted] = React.useState(false)
     const [src, setSrc] = React.useState(volumeUp)
     const [alt, setAlt] = React.useState("Volume Up")
-    const [like, setLike] = React.useState(false)
+    const [like, setLike] = React.useState("false")
     const [shuffle, setShuffle] = React.useState(false)
     const [repeat, setRepeat] = React.useState(false)
     const [title, setTitle] = React.useState(props.infos.title)
@@ -36,6 +36,7 @@ function Player(props) {
         setTitle(props.infos.title)
         setLike(props.infos.favorite)
     }
+
     const handleMute = () => {
         if(muted) {
             setMuted(false)
@@ -65,6 +66,12 @@ function Player(props) {
         if(src === volumeMute) return "Volume Mute"
     }
 
+    const handleLikeAction = () =>{
+        like === "false" ? setLike("true") : setLike("false")
+        props.updateSong(props.infos.id, props.infos.album, props.infos.artist, props.infos.duration, props.infos.cover, props.infos.title, like === "false" ? "true" : "false")
+        console.log(like)
+    }
+
     return (
         <div className={"flex bg-neutral-800 w-full h-[90px] mb-0 border-t border-neutral-600"}>
             <video datatype={"audio/mp3"} src={"http://127.0.0.1:5555"} className={"w-0 h-0"}/>
@@ -74,7 +81,7 @@ function Player(props) {
                     <p className={"select-text whitespace-nowrap overflow-ellipsis"}>{title}</p>
                     <p className={"select-text whitespace-nowrap overflow-ellipsis text-gray-400"}>{artist}</p>
                 </div>
-                <img draggable={false} src={like ? favorite : favoriteBorder} className={"hover:cursor-pointer h-[30px] my-auto mr-20"} onClick={() => setLike(!like)} alt={"like button"}/>
+                <img draggable={false} src={like === "true" ? favorite : favoriteBorder} className={"hover:cursor-pointer h-[30px] my-auto mr-20"} onClick={() => handleLikeAction()} alt={"like button"}/>
             </div>
             <img draggable={false} src={shuffle ? shuffleOn : shuffleOff} className={"hover:cursor-pointer h-[30px] my-auto mr-4"} onClick={() => setShuffle(!shuffle)} alt={"shuffle button"}/>
             <img draggable={false} src={skipPrevious} alt={"icône precedent"} className={"hover:cursor-pointer h-[40px] my-auto mr-4"}/>

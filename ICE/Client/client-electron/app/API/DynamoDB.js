@@ -49,6 +49,19 @@ class DynamoDB {
         return this.#executeCmd(`SELECT * FROM ${this.#dbName} WHERE SongTitle = '${title}';`)
     }
 
+    async updateSongInDbById(id, Album, Artist, SongTitle, Duration, Cover, Favorite) {
+        return this.#executeCmd(
+            `UPDATE ${this.#dbName} SET 
+            Album = '${Album}', 
+            Artist = '${Artist}', 
+            Duration = '${Duration}', 
+            Favorite = '${Favorite}', 
+            Cover = '${Cover}', 
+            SongTitle = '${SongTitle}'
+            WHERE id = '${id}';`
+        )
+    }
+
     #executeCmd(cmd) {
         return new Promise((resolve, reject) => {
             this.#dynamoDB.executeStatement({

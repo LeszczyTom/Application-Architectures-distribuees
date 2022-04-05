@@ -25,13 +25,11 @@ app.get('/deleteFromDbById/:id', (req,res) => {
 })
 
 app.get('/addToDb', (req,res) => {
-    //id, Album, Artist, SongTitle, Duration, Cover, Favorite
-    //http://localhost:2222/addToDb?album=Album&artist=Artist&duration=Duration&favorite=True&cover=Cover&title=test%20eee%20rr
     db.addToDb(req.query.album, req.query.artist, req.query.title, req.query.duration, req.query.cover, req.query.favorite).then(data => res.send(data))
 })
 
-app.get('/test', (req,res) => {
-    res.send("test")
+app.get('/updateSongInDbById/:id', (req,res) => {
+    db.updateSongInDbById(req.params.id, req.query.album, req.query.artist, req.query.title, req.query.duration, req.query.cover, req.query.favorite).then(data => res.send(data))
 })
 
 app.listen(2222, () => {

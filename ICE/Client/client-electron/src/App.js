@@ -9,8 +9,8 @@ import useDataBase from "./Hooks/useDataBase";
 
 function App() {
     const [currentView, setCurrentView] = React.useState("musicList");
-    const [selectedSong, setSelectedSong] = React.useState({id:"", title:"", artist:"", album:"", cover:"", fileURI:""});
-    const [playingSong, setPlayingSong] = React.useState({title: "", artist: "", cover:"", favorite: false});
+    const [selectedSong, setSelectedSong] = React.useState({});
+    const [playingSong, setPlayingSong] = React.useState({});
     //TODO: add a state for playing song
 
     const useDB = useDataBase("http://localhost:2222/selectAllFromDB");
@@ -20,8 +20,8 @@ function App() {
         <Menu setView={setCurrentView} view={currentView} selectAllFromDb={useDB.selectAllFromDb}/>
         {currentView === "musicList" && <MusicList setView={setCurrentView} view={currentView} setSong={setSelectedSong} setPlay={setPlayingSong} musiques={useDB.data}/>}
         {currentView === "addMusic" && <AddMusic addToDb={useDB.addToDb} setView={setCurrentView} error={useDB.error}/>}
-        {currentView === "songInfos" && <SongInfos song={selectedSong} deleteSong={useDB.deleteFromDbById} error={useDB.error} setView={setCurrentView}/>}
-        <Player infos={playingSong}/>
+        {currentView === "songInfos" && <SongInfos song={selectedSong} deleteSong={useDB.deleteFromDbById} error={useDB.error} setView={setCurrentView} updateSong={useDB.updateFromDbById}/>}
+        <Player infos={playingSong} updateSong={useDB.updateFromDbById} />
     </div>
     );
 }
