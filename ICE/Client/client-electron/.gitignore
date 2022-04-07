@@ -24,4 +24,4 @@ yarn-error.log*
 /package-lock.json
 /dist/
 /dist/*
-.env
+app/API/.env

@@ -1,7 +1,0 @@
-{
-  "name": "Client",
-  "version": "1.0.0",
-  "dependencies": {
-    "ice": "^3.7.71"
-  }
-}
