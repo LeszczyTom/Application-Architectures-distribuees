@@ -17,6 +17,8 @@ import repeatOn from "../Ressources/icons/repeat_green_24dp.svg"
 import cast from "../Ressources/icons/cast_white_24dp.svg"
 import more from "../Ressources/icons/more_vert_white_24dp.svg"
 
+let timeout = null
+
 function Player(props) {
     const [playing, setPlaying] = React.useState(true)
     const [volume, setVolume] = React.useState(50)
@@ -41,16 +43,22 @@ function Player(props) {
         if(muted) {
             setMuted(false)
             setSrc(handleSrc())
+            window["electronAPI"].playerCommand({cmd: "volume", value: volume})
         } else {
             setMuted(true)
             setSrc(volumeOff)
+            window["electronAPI"].playerCommand({cmd: "volume", value: 0})
         }
     }
 
     const handleVolume = (value) => {
         setVolume(parseInt(value))
-        if(!muted) setSrc(handleSrc())
         setAlt(handleAlt())
+        clearTimeout(timeout)
+        if(!muted) {
+            setSrc(handleSrc())
+            timeout = setTimeout(() => window["electronAPI"].playerCommand({cmd: "volume", value: volume}), 500)
+        }
     }
 
     const handleSrc = () => {
@@ -72,6 +80,28 @@ function Player(props) {
         console.log(like)
     }
 
+    const handlePreviousAction = () => {
+        window["electronAPI"].playerCommand({cmd: "previous"})
+    }
+
+    const handleNextAction = () => {
+        window["electronAPI"].playerCommand({cmd: "next"})
+    }
+
+    const handleShuffleAction = () => {
+        window["electronAPI"].playerCommand({cmd: "shuffle", state: !shuffle})
+        setShuffle(!shuffle)
+    }
+
+    const handleRepeatAction = () => {
+        window["electronAPI"].playerCommand({cmd: "repeat", state: !repeat})
+        setRepeat(!repeat)
+    }
+
+    const handlePlayPauseAction = () => {
+       window['electronAPI'].playerCommand({cmd: "play", state: playing})
+    }
+
     return (
         <div className={"flex bg-neutral-800 w-full h-[90px] mb-0 border-t border-neutral-600"}>
             <video datatype={"audio/mp3"} src={"http://127.0.0.1:5555"} className={"w-0 h-0"}/>
@@ -83,13 +113,13 @@ function Player(props) {
                 </div>
                 <img draggable={false} src={like === "true" ? favorite : favoriteBorder} className={"hover:cursor-pointer h-[30px] my-auto mr-20"} onClick={() => handleLikeAction()} alt={"like button"}/>
             </div>
-            <img draggable={false} src={shuffle ? shuffleOn : shuffleOff} className={"hover:cursor-pointer h-[30px] my-auto mr-4"} onClick={() => setShuffle(!shuffle)} alt={"shuffle button"}/>
-            <img draggable={false} src={skipPrevious} alt={"icône precedent"} className={"hover:cursor-pointer h-[40px] my-auto mr-4"}/>
+            <img draggable={false} src={shuffle ? shuffleOn : shuffleOff} className={"hover:cursor-pointer h-[30px] my-auto mr-4"} onClick={() => handleShuffleAction()} alt={"shuffle button"}/>
+            <img draggable={false} src={skipPrevious} alt={"icône precedent"} className={"hover:cursor-pointer h-[40px] my-auto mr-4"} onClick={() => handlePreviousAction()}/>
             <div className={"rounded-full bg-neutral-600 h-[50px] w-[50px] my-auto hover:cursor-pointer flex mr-4"} onClick={() => setPlaying(!playing)}>
-                <img draggable={false} src={playing ? play : pause} alt={"icône play/pause"} height={50} className={"h-[40px] m-auto"}/>
+                <img draggable={false} src={playing ? play : pause} alt={"icône play/pause"} height={50} className={"h-[40px] m-auto"} onClick={() => handlePlayPauseAction()}/>
             </div>
-            <img draggable={false} src={skipNext} alt={"icône suivant"} className={"hover:cursor-pointer h-[40px] my-auto mr-4"}/>
-            <img draggable={false} src={repeat ? repeatOn : repeatOff} className={"hover:cursor-pointer h-[30px] my-auto mr-4"} onClick={() => setRepeat(!repeat)} alt={"repeat button"}/>
+            <img draggable={false} src={skipNext} alt={"icône suivant"} className={"hover:cursor-pointer h-[40px] my-auto mr-4"} onClick={() => handleNextAction()}/>
+            <img draggable={false} src={repeat ? repeatOn : repeatOff} className={"hover:cursor-pointer h-[30px] my-auto mr-4"} onClick={() => handleRepeatAction()} alt={"repeat button"}/>
             <div className={"w-[74px]"}/>
             <div className={"flex"}>
                 <img draggable={false} src={src} alt={alt} className={"h-[35px] my-auto mr-2 hover:cursor-pointer"} onClick={() => handleMute()}/>
