@@ -25,11 +25,15 @@ app.get('/deleteFromDbById/:id', (req,res) => {
 })
 
 app.get('/addToDb', (req,res) => {
-    db.addToDb(req.query.album, req.query.artist, req.query.title, req.query.duration, req.query.cover, req.query.favorite).then(data => res.send(data))
+    db.addToDb(req.query.album, req.query.artist, req.query.title, req.query.duration, req.query.cover, req.query.favorite, req.query.URI).then(data => res.send(data))
 })
 
 app.get('/updateSongInDbById/:id', (req,res) => {
-    db.updateSongInDbById(req.params.id, req.query.album, req.query.artist, req.query.title, req.query.duration, req.query.cover, req.query.favorite).then(data => res.send(data))
+    db.updateSongInDbById(req.params.id, req.query.album, req.query.artist, req.query.title, req.query.duration, req.query.cover, req.query.favorite, req.query.URI).then(data => res.send(data))
+})
+
+app.get('/getAllUri', (req,res) => {
+    db.getAllUri().then(data => res.send(data))
 })
 
 app.listen(2222, () => {

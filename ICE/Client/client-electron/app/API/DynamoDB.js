@@ -22,7 +22,7 @@ class DynamoDB {
         return this.#executeCmd(`SELECT * FROM ${this.#dbName}`)
     }
 
-    async addToDb(Album, Artist, SongTitle, Duration, Cover, Favorite) {
+    async addToDb(Album, Artist, SongTitle, Duration, Cover, Favorite, URI) {
         const id = uuid().substr(0,23)
         return this.#executeCmd(
             `INSERT INTO ${this.#dbName} VALUE ({
@@ -32,7 +32,8 @@ class DynamoDB {
                     'Duration': '${Duration}', 
                     'Favorite': '${Favorite}', 
                     'Cover': '${Cover}', 
-                    'SongTitle': '${SongTitle}'
+                    'SongTitle': '${SongTitle}',
+                    'URI': '${URI}'
                     });`
         )
     }
@@ -49,7 +50,7 @@ class DynamoDB {
         return this.#executeCmd(`SELECT * FROM ${this.#dbName} WHERE SongTitle = '${title}';`)
     }
 
-    async updateSongInDbById(id, Album, Artist, SongTitle, Duration, Cover, Favorite) {
+    async updateSongInDbById(id, Album, Artist, SongTitle, Duration, Cover, Favorite, URI) {
         return this.#executeCmd(
             `UPDATE ${this.#dbName} SET 
             Album = '${Album}', 
@@ -57,9 +58,14 @@ class DynamoDB {
             Duration = '${Duration}', 
             Favorite = '${Favorite}', 
             Cover = '${Cover}', 
-            SongTitle = '${SongTitle}'
+            SongTitle = '${SongTitle}',
+            URI = '${URI}'
             WHERE id = '${id}';`
         )
+    }
+
+    async getAllUri() {
+        return this.#executeCmd(`SELECT URI FROM ${this.#dbName}`)
     }
 
     #executeCmd(cmd) {
