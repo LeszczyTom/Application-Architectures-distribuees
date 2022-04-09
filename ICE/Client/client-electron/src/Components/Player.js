@@ -31,6 +31,7 @@ function Player(props) {
     const [title, setTitle] = React.useState(props.infos.title)
     const [artist, setArtist] = React.useState(props.infos.artist)
     const [cover, setCover] = React.useState(props.infos.cover)
+    const refVideoStream = React.createRef()
 
     if(title !== props.infos.title){
         setArtist(props.infos.artist)
@@ -99,12 +100,21 @@ function Player(props) {
     }
 
     const handlePlayPauseAction = () => {
-       window['electronAPI'].playerCommand({cmd: "play", state: playing})
+        window['electronAPI'].playerCommand({cmd: "play", state: playing})
+        if(playing) {
+            refVideoStream.current.src = "http://127.0.0.1:5555"
+            refVideoStream.current.load()
+            refVideoStream.current.play()
+        } else {
+            refVideoStream.current.pause()
+        }
     }
+
+    //let songs = ["french-lesson-numbers-1-100-compter-jusqua-100-learn-french", "music-sounds-better-with-you"];
 
     return (
         <div className={"flex bg-neutral-800 w-full h-[90px] mb-0 border-t border-neutral-600"}>
-            <video datatype={"audio/mp3"} src={"http://127.0.0.1:5555"} className={"w-0 h-0"}/>
+            <video ref={refVideoStream} datatype={"audio/mp3"} autoPlay={false} src={"http://127.0.0.1:5555"} className={"w-0 h-0"}/>
             <img draggable={false} src={cover} className={"h-[50px] w-[50px] my-auto ml-5 mr-2 rounded-xl hover:cursor-pointer bg-neutral-700 overflow-hidden text-xs"} alt={"album musique joué"}/>
             <div className={"flex text-white my-auto ml-2 text-sm w-[360px]"}>
                 <div className={"flex flex-col mr-5"}>
