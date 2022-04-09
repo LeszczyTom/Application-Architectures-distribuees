@@ -16,25 +16,28 @@ public class Player implements PlayerCommands {
         setAvailableSong();
     }
 
-    private ArrayList<String> availableSong;
+    private ArrayList<String> availableSong = new ArrayList<>();
 
+    //Parse the uri of songs fetched from the api
     private void setAvailableSong() {
         try {
-            URL url = new URL("http://localhost:2222/selectAllFromDB");
-            //TODO: change request
+            URL url = new URL("http://localhost:2222/getAllUri");
             BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()));
-            StringBuffer json = new StringBuffer();
-            String line;
-
-            while ((line = reader.readLine()) != null) {
-                json.append(line);
+            String[] tokens=reader.readLine().split("\"");
+            boolean b = false;
+            String dernier = "";
+            for(String token:tokens){
+                if(b && dernier.equals("S")) availableSong.add(token);
+                if(!token.equals(":")) dernier = token;
+                if(token.equals(":")) b = true;
+                else b = false;
             }
             reader.close();
-            System.out.println(json.toString());
         } catch (IOException e) {
             e.printStackTrace();
         }
-    } ;
+        System.out.println(availableSong);
+    }
 
     @Override
     public boolean play(boolean b, Current current) {
