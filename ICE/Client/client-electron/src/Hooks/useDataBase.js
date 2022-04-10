@@ -6,10 +6,6 @@ function useDataBase() {
     const [loading, setLoading] = useState(false);
     const [changed, setChanged] = useState(true);
 
-    useEffect(() => {
-        setError("")
-    }, []);
-
     const selectAllFromDb = () => {
         setLoading(true);
         fetch("http://localhost:2222/selectAllFromDB")
@@ -69,6 +65,7 @@ function useDataBase() {
     }
 
     useEffect(() => {
+        setError("")
         if(!changed) return
         setLoading(true);
         fetch("http://localhost:2222/selectAllFromDB")
@@ -92,7 +89,7 @@ function useDataBase() {
         selectAllFromDb,
         addToDb,
         deleteFromDbById,
-        updateFromDbById
+        updateFromDbById,
     };
 }
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import skipNext from "../Ressources/icons/skip_next_white_24dp.svg"
 import skipPrevious from "../Ressources/icons/skip_previous_white_24dp.svg"
 import play from "../Ressources/icons/play_arrow_white_24dp.svg"
@@ -28,17 +28,21 @@ function Player(props) {
     const [like, setLike] = React.useState("false")
     const [shuffle, setShuffle] = React.useState(false)
     const [repeat, setRepeat] = React.useState(false)
-    const [title, setTitle] = React.useState(props.infos.title)
-    const [artist, setArtist] = React.useState(props.infos.artist)
-    const [cover, setCover] = React.useState(props.infos.cover)
+    const [title, setTitle] = React.useState(props.useQueue.playingSong.title)
+    const [artist, setArtist] = React.useState(props.useQueue.playingSong.artist)
+    const [cover, setCover] = React.useState(props.useQueue.playingSong.cover)
     const refVideoStream = React.createRef()
 
-    if(title !== props.infos.title){
-        setArtist(props.infos.artist)
-        setCover(props.infos.cover)
-        setTitle(props.infos.title)
-        setLike(props.infos.favorite)
-    }
+    useEffect(() => {
+        if(title !== props.useQueue.playingSong.title) {
+            setArtist(props.useQueue.playingSong.artist)
+            setCover(props.useQueue.playingSong.cover)
+            setTitle(props.useQueue.playingSong.title)
+            setLike(props.useQueue.playingSong.favorite)
+            setPlaying(false)
+        }
+    }, [title, props.useQueue])
+
 
     const handleMute = () => {
         if(muted) {
@@ -77,20 +81,22 @@ function Player(props) {
 
     const handleLikeAction = () =>{
         like === "false" ? setLike("true") : setLike("false")
-        props.updateSong(props.infos.id, props.infos.album, props.infos.artist, props.infos.duration, props.infos.cover, props.infos.title, like === "false" ? "true" : "false")
+        props.updateSong(props.useQueue.playingSong.id, props.useQueue.playingSong.album, props.useQueue.playingSong.artist, props.useQueue.playingSong.duration, props.useQueue.playingSong.cover, props.useQueue.playingSong.title, like === "false" ? "true" : "false")
         console.log(like)
     }
 
     const handlePreviousAction = () => {
-        window["electronAPI"].playerCommand({cmd: "previous"})
+        props.useQueue.lastSong()
+        setPlaying(false)
     }
 
     const handleNextAction = () => {
-        window["electronAPI"].playerCommand({cmd: "next"})
+        props.useQueue.nextSong()
+        setPlaying(false)
     }
 
     const handleShuffleAction = () => {
-        window["electronAPI"].playerCommand({cmd: "shuffle", state: !shuffle})
+        if(!shuffle) props.useQueue.shuffleQueue()
         setShuffle(!shuffle)
     }
 

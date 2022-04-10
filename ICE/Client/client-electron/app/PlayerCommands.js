@@ -40,10 +40,8 @@
     Slice.defineOperations(tl.PlayerCommands, tl.PlayerCommandsPrx, iceC_tl_PlayerCommands_ids, 1,
     {
         "play": [, , , , [1], [[1]], , , , ],
+        "playSong": [, , , , [1], [[7]], , , , ],
         "stop": [, , , , [1], , , , , ],
-        "next": [, , , , [1], , , , , ],
-        "previous": [, , , , [1], , , , , ],
-        "shuffle": [, , , , [1], [[1]], , , , ],
         "repeat": [, , , , [1], [[1]], , , , ],
         "volume": [, , , , [1], [[3]], , , , ]
     });
