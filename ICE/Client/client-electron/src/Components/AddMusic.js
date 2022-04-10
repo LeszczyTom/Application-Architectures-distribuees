@@ -19,7 +19,7 @@ function AddMusic(props) {
         if(!/([0-9]*):([0-9]*)/.test(duration)) return alert("Duration is not valid");
         if(!/^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w.-]+)+[\w\-._~:/?#[\]@!$&'()*+,;=]+$/.test(cover)) return alert("Cover is not valid");
         if(!/^[a-z ,.'-()]+$/i.test(title)) return alert("Title is not valid");
-        props.addToDb(album, artist, duration, cover, title);
+        props.addToDb(album, artist, duration, cover, title, file);
         if(props.error)
             return alert(props.error);
         props.setView("musicList")
@@ -50,9 +50,9 @@ function AddMusic(props) {
                        className={"mt-4 h-[40px] bg-neutral-800 rounded-lg border-2 bg-black border border-neutral-600 px-3 focus:border-[#1DB954]"}/>
                 <div className={"flex w-full mt-4"}>
                     <label htmlFor={"fileMusic"} className={"my-auto w-[180px] hover:cursor-pointer hover:text-[#1DB954]"}>Choisir un fichier MP3: </label>
-                    <input id={"fileMusic"} type={"file"} className={"hidden"}  accept={".mp3"} onChange={(event) => setFile(event.target.value)} />
+                    <input id={"fileMusic"} type={"file"} className={"hidden"}  accept={".mp3"} onChange={(event) => setFile(cleanUpFileName(event.target.value))} />
                     <div className={"w-[354px] h-[40px] border-2 border-neutral-600 rounded-lg px-3 my-auto bg-neutral-800 flex"}>
-                        <p className={"my-auto overflow-hidden whitespace-nowrap overflow-ellipsis"}>{cleanUpFileName(file)}</p>
+                        <p className={"my-auto overflow-hidden whitespace-nowrap overflow-ellipsis"}>{file}</p>
                     </div>
                 </div>
                 <input type={"submit"}

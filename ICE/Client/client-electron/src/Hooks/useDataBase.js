@@ -6,6 +6,10 @@ function useDataBase() {
     const [loading, setLoading] = useState(false);
     const [changed, setChanged] = useState(true);
 
+    useEffect(() => {
+        setError("")
+    }, []);
+
     const selectAllFromDb = () => {
         setLoading(true);
         fetch("http://localhost:2222/selectAllFromDB")
@@ -22,9 +26,9 @@ function useDataBase() {
             });
     }
 
-    const addToDb = (album, artist, duration, cover, title) => {
+    const addToDb = (album, artist, duration, cover, title, uri) => {
         setLoading(true);
-        fetch(`http://localhost:2222/addToDb?album=${album}&artist=${artist}&duration=${duration}&favorite=false&cover=${cover}&title=${title}`)
+        fetch(`http://localhost:2222/addToDb?album=${album}&artist=${artist}&duration=${duration}&favorite=false&cover=${cover}&title=${title}&URI=${uri}`)
             .then(response => response.json())
             .then(() => {
                 setLoading(false);
@@ -50,9 +54,9 @@ function useDataBase() {
             });
     }
 
-    const updateFromDbById = (id, album, artist, duration, cover, title, favorite) => {
+    const updateFromDbById = (id, album, artist, duration, cover, title, favorite, uri) => {
         setLoading(true);
-        fetch(`http://localhost:2222/updateSongInDbById/${id}?album=${album}&artist=${artist}&duration=${duration}&favorite=${favorite}&cover=${cover}&title=${title}`)
+        fetch(`http://localhost:2222/updateSongInDbById/${id}?album=${album}&artist=${artist}&duration=${duration}&favorite=${favorite}&cover=${cover}&title=${title}&URI=${uri}`)
             .then(response => response.json())
             .then(() => {
                 setLoading(false);
