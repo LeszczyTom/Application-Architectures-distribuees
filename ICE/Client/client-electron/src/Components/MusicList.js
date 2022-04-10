@@ -15,24 +15,27 @@ function MusicList(props) {
             artist: musique.Artist.S,
             album: musique.Album.S,
             cover: musique.Cover.S,
-            fileURI: "",
+            fileURI: musique.URI.S,
             duration: musique.Duration.S,
             favorite: musique.Favorite.S,
         })
         props.setView("songInfos")
     }
 
-    const handlePlayButton = (musique) => {
+    const handlePlayButton = (musique, key) => {
         props.setPlay({
             id: musique.id.S,
             title: musique.SongTitle.S,
             artist: musique.Artist.S,
             album: musique.Album.S,
             cover: musique.Cover.S,
-            fileURI: "",
+            fileURI: musique.URI.S,
             duration: musique.Duration.S,
             favorite: musique.Favorite.S,
         })
+        props.changeIndex(key)
+        console.log(key + "handlePlayButton")
+        window["electronAPI"].playerCommand({cmd: "playSong", value: musique.URI.S})
     }
 
     return (
@@ -40,7 +43,7 @@ function MusicList(props) {
             <div className={"flex flex-col text-gray-400"}>
                 <div className={"flex font-bold"}>
                     <div className={"text-center w-[15px] ml-2"}>#</div>
-                    <div className={"text-left w-[570px] ml-3"} onClick={() => test()}>TITRE</div>
+                    <div className={"text-left w-[570px] ml-3"}>TITRE</div>
                     <div className={"text-left w-[435px]"}>ALBUM</div>
                     <div className={"w-[20px]"}/>
                     <div className={"w-[100px]"}>
@@ -58,7 +61,7 @@ function MusicList(props) {
                                  onMouseLeave={() => setHover("-1")}>
                                 {
                                     hover === key ?
-                                        <div className={"w-[23px] flex hover:cursor-pointer"} onClick={() => handlePlayButton(props.musiques.Items[key])}>
+                                        <div className={"w-[23px] flex hover:cursor-pointer"} onClick={() => handlePlayButton(props.musiques.Items[key], key)}>
                                             <img draggable={false} src={play} className={"h-[30px] ml-2 my-auto"} alt={"play icon"}/>
                                         </div>
                                         :

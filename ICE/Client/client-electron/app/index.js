@@ -96,21 +96,15 @@ async function executeCommand(data) {
         case "stop":
             await player.stop()
             return "Stopping"
-        case "next":
-            await player.next()
-            return "Next"
-        case "previous":
-            await player.previous()
-            return "Previous"
-        case "shuffle":
-            await player.shuffle(bool)
-            return bool ? "ShuffleOn" : "ShuffleOff"
         case "repeat":
             await player.repeat(bool)
             return bool ? "RepeatOn" : "RepeatOff"
         case "volume":
             await player.volume(data.value)
             return "Volume at " + data.value
+        case "playSong":
+            await player.playSong(data.value)
+            return "Playing " + data.value
         default:
             return "Unknown command"
     }
