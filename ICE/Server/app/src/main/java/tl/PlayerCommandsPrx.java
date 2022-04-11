@@ -57,6 +57,46 @@ public interface PlayerCommandsPrx extends com.zeroc.Ice.ObjectPrx
         return f;
     }
 
+    default boolean playSong(String song)
+    {
+        return playSong(song, com.zeroc.Ice.ObjectPrx.noExplicitContext);
+    }
+
+    default boolean playSong(String song, java.util.Map<String, String> context)
+    {
+        return _iceI_playSongAsync(song, context, true).waitForResponse();
+    }
+
+    default java.util.concurrent.CompletableFuture<java.lang.Boolean> playSongAsync(String song)
+    {
+        return _iceI_playSongAsync(song, com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
+    }
+
+    default java.util.concurrent.CompletableFuture<java.lang.Boolean> playSongAsync(String song, java.util.Map<String, String> context)
+    {
+        return _iceI_playSongAsync(song, context, false);
+    }
+
+    /**
+     * @hidden
+     * @param iceP_song -
+     * @param context -
+     * @param sync -
+     * @return -
+     **/
+    default com.zeroc.IceInternal.OutgoingAsync<java.lang.Boolean> _iceI_playSongAsync(String iceP_song, java.util.Map<String, String> context, boolean sync)
+    {
+        com.zeroc.IceInternal.OutgoingAsync<java.lang.Boolean> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "playSong", null, sync, null);
+        f.invoke(true, context, null, ostr -> {
+                     ostr.writeString(iceP_song);
+                 }, istr -> {
+                     boolean ret;
+                     ret = istr.readBool();
+                     return ret;
+                 });
+        return f;
+    }
+
     default boolean stop()
     {
         return stop(com.zeroc.Ice.ObjectPrx.noExplicitContext);
@@ -87,120 +127,6 @@ public interface PlayerCommandsPrx extends com.zeroc.Ice.ObjectPrx
     {
         com.zeroc.IceInternal.OutgoingAsync<java.lang.Boolean> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "stop", null, sync, null);
         f.invoke(true, context, null, null, istr -> {
-                     boolean ret;
-                     ret = istr.readBool();
-                     return ret;
-                 });
-        return f;
-    }
-
-    default boolean next()
-    {
-        return next(com.zeroc.Ice.ObjectPrx.noExplicitContext);
-    }
-
-    default boolean next(java.util.Map<String, String> context)
-    {
-        return _iceI_nextAsync(context, true).waitForResponse();
-    }
-
-    default java.util.concurrent.CompletableFuture<java.lang.Boolean> nextAsync()
-    {
-        return _iceI_nextAsync(com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
-    }
-
-    default java.util.concurrent.CompletableFuture<java.lang.Boolean> nextAsync(java.util.Map<String, String> context)
-    {
-        return _iceI_nextAsync(context, false);
-    }
-
-    /**
-     * @hidden
-     * @param context -
-     * @param sync -
-     * @return -
-     **/
-    default com.zeroc.IceInternal.OutgoingAsync<java.lang.Boolean> _iceI_nextAsync(java.util.Map<String, String> context, boolean sync)
-    {
-        com.zeroc.IceInternal.OutgoingAsync<java.lang.Boolean> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "next", null, sync, null);
-        f.invoke(true, context, null, null, istr -> {
-                     boolean ret;
-                     ret = istr.readBool();
-                     return ret;
-                 });
-        return f;
-    }
-
-    default boolean previous()
-    {
-        return previous(com.zeroc.Ice.ObjectPrx.noExplicitContext);
-    }
-
-    default boolean previous(java.util.Map<String, String> context)
-    {
-        return _iceI_previousAsync(context, true).waitForResponse();
-    }
-
-    default java.util.concurrent.CompletableFuture<java.lang.Boolean> previousAsync()
-    {
-        return _iceI_previousAsync(com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
-    }
-
-    default java.util.concurrent.CompletableFuture<java.lang.Boolean> previousAsync(java.util.Map<String, String> context)
-    {
-        return _iceI_previousAsync(context, false);
-    }
-
-    /**
-     * @hidden
-     * @param context -
-     * @param sync -
-     * @return -
-     **/
-    default com.zeroc.IceInternal.OutgoingAsync<java.lang.Boolean> _iceI_previousAsync(java.util.Map<String, String> context, boolean sync)
-    {
-        com.zeroc.IceInternal.OutgoingAsync<java.lang.Boolean> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "previous", null, sync, null);
-        f.invoke(true, context, null, null, istr -> {
-                     boolean ret;
-                     ret = istr.readBool();
-                     return ret;
-                 });
-        return f;
-    }
-
-    default boolean shuffle(boolean b)
-    {
-        return shuffle(b, com.zeroc.Ice.ObjectPrx.noExplicitContext);
-    }
-
-    default boolean shuffle(boolean b, java.util.Map<String, String> context)
-    {
-        return _iceI_shuffleAsync(b, context, true).waitForResponse();
-    }
-
-    default java.util.concurrent.CompletableFuture<java.lang.Boolean> shuffleAsync(boolean b)
-    {
-        return _iceI_shuffleAsync(b, com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
-    }
-
-    default java.util.concurrent.CompletableFuture<java.lang.Boolean> shuffleAsync(boolean b, java.util.Map<String, String> context)
-    {
-        return _iceI_shuffleAsync(b, context, false);
-    }
-
-    /**
-     * @hidden
-     * @param iceP_b -
-     * @param context -
-     * @param sync -
-     * @return -
-     **/
-    default com.zeroc.IceInternal.OutgoingAsync<java.lang.Boolean> _iceI_shuffleAsync(boolean iceP_b, java.util.Map<String, String> context, boolean sync)
-    {
-        com.zeroc.IceInternal.OutgoingAsync<java.lang.Boolean> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "shuffle", null, sync, null);
-        f.invoke(true, context, null, ostr -> {
-                     ostr.writeBool(iceP_b);
-                 }, istr -> {
                      boolean ret;
                      ret = istr.readBool();
                      return ret;

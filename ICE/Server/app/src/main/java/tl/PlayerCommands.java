@@ -19,13 +19,9 @@ public interface PlayerCommands extends com.zeroc.Ice.Object
 {
     boolean play(boolean b, com.zeroc.Ice.Current current);
 
+    boolean playSong(String song, com.zeroc.Ice.Current current);
+
     boolean stop(com.zeroc.Ice.Current current);
-
-    boolean next(com.zeroc.Ice.Current current);
-
-    boolean previous(com.zeroc.Ice.Current current);
-
-    boolean shuffle(boolean b, com.zeroc.Ice.Current current);
 
     boolean repeat(boolean b, com.zeroc.Ice.Current current);
 
@@ -83,68 +79,32 @@ public interface PlayerCommands extends com.zeroc.Ice.Object
      * @param current -
      * @return -
     **/
+    static java.util.concurrent.CompletionStage<com.zeroc.Ice.OutputStream> _iceD_playSong(PlayerCommands obj, final com.zeroc.IceInternal.Incoming inS, com.zeroc.Ice.Current current)
+    {
+        com.zeroc.Ice.Object._iceCheckMode(null, current.mode);
+        com.zeroc.Ice.InputStream istr = inS.startReadParams();
+        String iceP_song;
+        iceP_song = istr.readString();
+        inS.endReadParams();
+        boolean ret = obj.playSong(iceP_song, current);
+        com.zeroc.Ice.OutputStream ostr = inS.startWriteParams();
+        ostr.writeBool(ret);
+        inS.endWriteParams(ostr);
+        return inS.setResult(ostr);
+    }
+
+    /**
+     * @hidden
+     * @param obj -
+     * @param inS -
+     * @param current -
+     * @return -
+    **/
     static java.util.concurrent.CompletionStage<com.zeroc.Ice.OutputStream> _iceD_stop(PlayerCommands obj, final com.zeroc.IceInternal.Incoming inS, com.zeroc.Ice.Current current)
     {
         com.zeroc.Ice.Object._iceCheckMode(null, current.mode);
         inS.readEmptyParams();
         boolean ret = obj.stop(current);
-        com.zeroc.Ice.OutputStream ostr = inS.startWriteParams();
-        ostr.writeBool(ret);
-        inS.endWriteParams(ostr);
-        return inS.setResult(ostr);
-    }
-
-    /**
-     * @hidden
-     * @param obj -
-     * @param inS -
-     * @param current -
-     * @return -
-    **/
-    static java.util.concurrent.CompletionStage<com.zeroc.Ice.OutputStream> _iceD_next(PlayerCommands obj, final com.zeroc.IceInternal.Incoming inS, com.zeroc.Ice.Current current)
-    {
-        com.zeroc.Ice.Object._iceCheckMode(null, current.mode);
-        inS.readEmptyParams();
-        boolean ret = obj.next(current);
-        com.zeroc.Ice.OutputStream ostr = inS.startWriteParams();
-        ostr.writeBool(ret);
-        inS.endWriteParams(ostr);
-        return inS.setResult(ostr);
-    }
-
-    /**
-     * @hidden
-     * @param obj -
-     * @param inS -
-     * @param current -
-     * @return -
-    **/
-    static java.util.concurrent.CompletionStage<com.zeroc.Ice.OutputStream> _iceD_previous(PlayerCommands obj, final com.zeroc.IceInternal.Incoming inS, com.zeroc.Ice.Current current)
-    {
-        com.zeroc.Ice.Object._iceCheckMode(null, current.mode);
-        inS.readEmptyParams();
-        boolean ret = obj.previous(current);
-        com.zeroc.Ice.OutputStream ostr = inS.startWriteParams();
-        ostr.writeBool(ret);
-        inS.endWriteParams(ostr);
-        return inS.setResult(ostr);
-    }
-
-    /**
-     * @hidden
-     * @param obj -
-     * @param inS -
-     * @param current -
-     * @return -
-    **/
-    static java.util.concurrent.CompletionStage<com.zeroc.Ice.OutputStream> _iceD_shuffle(PlayerCommands obj, final com.zeroc.IceInternal.Incoming inS, com.zeroc.Ice.Current current)
-    {
-        com.zeroc.Ice.Object._iceCheckMode(null, current.mode);
-        com.zeroc.Ice.InputStream istr = inS.startReadParams();
-        boolean iceP_b;
-        iceP_b = istr.readBool();
-        inS.endReadParams();
-        boolean ret = obj.shuffle(iceP_b, current);
         com.zeroc.Ice.OutputStream ostr = inS.startWriteParams();
         ostr.writeBool(ret);
         inS.endWriteParams(ostr);
@@ -200,11 +160,9 @@ public interface PlayerCommands extends com.zeroc.Ice.Object
         "ice_ids",
         "ice_isA",
         "ice_ping",
-        "next",
         "play",
-        "previous",
+        "playSong",
         "repeat",
-        "shuffle",
         "stop",
         "volume"
     };
@@ -240,29 +198,21 @@ public interface PlayerCommands extends com.zeroc.Ice.Object
             }
             case 4:
             {
-                return _iceD_next(this, in, current);
+                return _iceD_play(this, in, current);
             }
             case 5:
             {
-                return _iceD_play(this, in, current);
+                return _iceD_playSong(this, in, current);
             }
             case 6:
             {
-                return _iceD_previous(this, in, current);
+                return _iceD_repeat(this, in, current);
             }
             case 7:
             {
-                return _iceD_repeat(this, in, current);
-            }
-            case 8:
-            {
-                return _iceD_shuffle(this, in, current);
-            }
-            case 9:
-            {
                 return _iceD_stop(this, in, current);
             }
-            case 10:
+            case 8:
             {
                 return _iceD_volume(this, in, current);
             }
