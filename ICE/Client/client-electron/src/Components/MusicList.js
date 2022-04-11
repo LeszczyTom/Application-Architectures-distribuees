@@ -58,7 +58,8 @@ function MusicList(props) {
                         return (
                             <div className={"flex mt-2 py-1 rounded-lg text-sm hover:bg-neutral-800"}
                                  onMouseEnter={() => setHover(key)}
-                                 onMouseLeave={() => setHover("-1")}>
+                                 onMouseLeave={() => setHover("-1")}
+                                 key={key}>
                                 {
                                     hover === key ?
                                         <div className={"w-[23px] flex hover:cursor-pointer"} onClick={() => handlePlayButton(props.musiques.Items[key], key)}>

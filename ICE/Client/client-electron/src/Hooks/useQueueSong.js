@@ -6,7 +6,7 @@ const useQueueSong = (props) => {
     const [queue, setQueue] = React.useState(null)
     const [currentSong, setCurrentSong] = React.useState(0)
     const [changed, setChanged] = useState(true);
-    const [playingSong, setPlayingSong] = React.useState({});
+    const [playingSong, setPlayingSong] = React.useState({title: 'Titre', artist: 'Artiste', album: '', cover: 'https://picsum.photos/45', duration: 0, id: 0, url: ''})
 
     useEffect(() => {
         if(!changed) return

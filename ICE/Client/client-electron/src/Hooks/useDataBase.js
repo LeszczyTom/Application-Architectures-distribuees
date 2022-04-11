@@ -6,21 +6,6 @@ function useDataBase() {
     const [loading, setLoading] = useState(false);
     const [changed, setChanged] = useState(true);
 
-    const selectAllFromDb = () => {
-        setLoading(true);
-        fetch("http://localhost:2222/selectAllFromDB")
-            .then(response => response.json())
-            .then(d => {
-                setData(d);
-                setLoading(false);
-                setChanged(false);
-                console.log(d);
-            })
-            .catch(e => {
-                setError(e);
-                setLoading(false);
-            });
-    }
 
     const addToDb = (album, artist, duration, cover, title, uri) => {
         setLoading(true);
@@ -86,7 +71,6 @@ function useDataBase() {
         data,
         error,
         loading,
-        selectAllFromDb,
         addToDb,
         deleteFromDbById,
         updateFromDbById,

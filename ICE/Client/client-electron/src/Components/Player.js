@@ -28,9 +28,9 @@ function Player(props) {
     const [like, setLike] = React.useState("false")
     const [shuffle, setShuffle] = React.useState(false)
     const [repeat, setRepeat] = React.useState(false)
-    const [title, setTitle] = React.useState(props.useQueue.playingSong.title)
-    const [artist, setArtist] = React.useState(props.useQueue.playingSong.artist)
-    const [cover, setCover] = React.useState(props.useQueue.playingSong.cover)
+    const [title, setTitle] = React.useState("Titre")
+    const [artist, setArtist] = React.useState("Artiste")
+    const [cover, setCover] = React.useState("https://picsum.photos/45")
     const refVideoStream = React.createRef()
 
     useEffect(() => {
@@ -115,8 +115,6 @@ function Player(props) {
             refVideoStream.current.pause()
         }
     }
-
-    //let songs = ["french-lesson-numbers-1-100-compter-jusqua-100-learn-french", "music-sounds-better-with-you"];
 
     return (
         <div className={"flex bg-neutral-800 w-full h-[90px] mb-0 border-t border-neutral-600"}>
