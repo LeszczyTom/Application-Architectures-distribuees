@@ -1,15 +1,16 @@
 import React from 'react';
 
 function AddMusic(props) {
-    const [file, setFile] = React.useState("");
+    const [fileName, setFileName] = React.useState("");
+    const [file, setFile] = React.useState(null);
     const [title, setTitle] = React.useState("");
     const [artist, setArtist] = React.useState("");
     const [album, setAlbum] = React.useState("");
     const [duration, setDuration] = React.useState("");
     const [cover, setCover] = React.useState("");
 
-    const cleanUpFileName = (fileName) => {
-        let tmp = fileName.split("\\");
+    const cleanUpFileName = (name) => {
+        let tmp = name.split("\\");
         return tmp[tmp.length - 1];
     }
 
@@ -19,7 +20,10 @@ function AddMusic(props) {
         if(!/([0-9]*):([0-9]*)/.test(duration)) return alert("Duration is not valid");
         if(!/^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w.-]+)+[\w\-._~:/?#[\]@!$&'()*+,;=]+$/.test(cover)) return alert("Cover is not valid");
         if(!/^[a-z ,.'-()]+$/i.test(title)) return alert("Title is not valid");
-        props.addToDb(album, artist, duration, cover, title, file);
+        props.addToDb(album, artist, duration, cover, title, fileName);
+
+        window["electronAPI"].playerCommand({cmd: "sendFile", value: file.file[0]});
+
         if(props.error)
             return alert(props.error);
         props.setView("musicList")
@@ -50,9 +54,12 @@ function AddMusic(props) {
                        className={"mt-4 h-[40px] bg-neutral-800 rounded-lg border-2 bg-black border border-neutral-600 px-3 focus:border-[#1DB954]"}/>
                 <div className={"flex w-full mt-4"}>
                     <label htmlFor={"fileMusic"} className={"my-auto w-[180px] hover:cursor-pointer hover:text-[#1DB954]"}>Choisir un fichier MP3: </label>
-                    <input id={"fileMusic"} type={"file"} className={"hidden"}  accept={".mp3"} onChange={(event) => setFile(cleanUpFileName(event.target.value))} />
+                    <input id={"fileMusic"} type={"file"} className={"hidden"}  accept={".mp3"} onChange={(event) => {
+                        setFileName(cleanUpFileName(event.target.value))
+                        setFile(event.target)
+                    }} />
                     <div className={"w-[354px] h-[40px] border-2 border-neutral-600 rounded-lg px-3 my-auto bg-neutral-800 flex"}>
-                        <p className={"my-auto overflow-hidden whitespace-nowrap overflow-ellipsis"}>{file}</p>
+                        <p className={"my-auto overflow-hidden whitespace-nowrap overflow-ellipsis"}>{fileName}</p>
                     </div>
                 </div>
                 <input type={"submit"}

@@ -60,16 +60,18 @@ app.on('activate', () => {
 });
 
 let player = null
+let file = null
 let communicator = null
 
 async function startIce() {
     try {
         communicator = Ice.initialize();
         const base = communicator.stringToProxy("player:default -p 10000");
-        player = await PlayerCommand.PlayerCommandsPrx.checkedCast(base);
+        player = await PlayerCommand.PlayerCommandsPrx.checkedCast(base).then(r => console.log(r));
     } catch (ex) {
         console.log(ex.toString());
         process.exitCode = 1;
+        await endIce()
     }
 }
 
@@ -82,7 +84,7 @@ async function endIce() {
 async function executeCommand(data) {
     let cmd = data.cmd
     let bool = data.state
-    if(player == null) {
+    if(player == null || file == null) {
         startIce().then(() => {
             console.log(executeCommand(cmd))
             return "Ice started"
@@ -105,6 +107,9 @@ async function executeCommand(data) {
         case "playSong":
             await player.playSong(data.value)
             return "Playing " + data.value
+        case "sendFile":
+            await player.sendFile(data.value)
+            return "Sending " + data.value
         default:
             return "Unknown command"
     }
