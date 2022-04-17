@@ -29,6 +29,8 @@ public interface PlayerCommands extends com.zeroc.Ice.Object
 
     void downloadFile(String song, com.zeroc.Ice.Current current);
 
+    void removeFile(String song, com.zeroc.Ice.Current current);
+
     /** @hidden */
     static final String[] _iceIds =
     {
@@ -173,6 +175,24 @@ public interface PlayerCommands extends com.zeroc.Ice.Object
         return inS.setResult(inS.writeEmptyParams());
     }
 
+    /**
+     * @hidden
+     * @param obj -
+     * @param inS -
+     * @param current -
+     * @return -
+    **/
+    static java.util.concurrent.CompletionStage<com.zeroc.Ice.OutputStream> _iceD_removeFile(PlayerCommands obj, final com.zeroc.IceInternal.Incoming inS, com.zeroc.Ice.Current current)
+    {
+        com.zeroc.Ice.Object._iceCheckMode(null, current.mode);
+        com.zeroc.Ice.InputStream istr = inS.startReadParams();
+        String iceP_song;
+        iceP_song = istr.readString();
+        inS.endReadParams();
+        obj.removeFile(iceP_song, current);
+        return inS.setResult(inS.writeEmptyParams());
+    }
+
     /** @hidden */
     final static String[] _iceOps =
     {
@@ -183,6 +203,7 @@ public interface PlayerCommands extends com.zeroc.Ice.Object
         "ice_ping",
         "play",
         "playSong",
+        "removeFile",
         "repeat",
         "stop",
         "volume"
@@ -231,13 +252,17 @@ public interface PlayerCommands extends com.zeroc.Ice.Object
             }
             case 7:
             {
-                return _iceD_repeat(this, in, current);
+                return _iceD_removeFile(this, in, current);
             }
             case 8:
             {
-                return _iceD_stop(this, in, current);
+                return _iceD_repeat(this, in, current);
             }
             case 9:
+            {
+                return _iceD_stop(this, in, current);
+            }
+            case 10:
             {
                 return _iceD_volume(this, in, current);
             }
