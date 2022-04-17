@@ -6,6 +6,7 @@ public class StreamHttp implements Runnable {
 
     private final String options;
     MediaPlayer mediaPlayer;
+    private final String FOLDER = "/home/tom/IdeaProjects/Application-Architectures-distribuees/ICE/Server/app/src/main/resources/";
 
     public StreamHttp(String serverAddress, int serverPort) {
         this.options = formatHttpStream(serverAddress, serverPort); //formatHttpStream("localhost", 5555)
@@ -36,7 +37,7 @@ public class StreamHttp implements Runnable {
     public void startPlayer() {
         MediaPlayerFactory mediaPlayerFactory = new MediaPlayerFactory();
         mediaPlayer = mediaPlayerFactory.mediaPlayers().newMediaPlayer();
-        mediaPlayer.media().play("/home/tom/Musique/french-lesson-numbers-1-100-compter-jusqua-100-learn-french.mp3", options);
+        mediaPlayer.media().play(FOLDER + "/music-sounds-better-with-you.mp3", options);
     }
 
     public void controlPlay() {

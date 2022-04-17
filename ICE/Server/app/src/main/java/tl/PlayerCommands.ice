@@ -7,5 +7,6 @@ module tl
         bool repeat(bool b);
         bool volume(int b);
         void downloadFile(string song);
+        void removeFile(string song);
     };
 };

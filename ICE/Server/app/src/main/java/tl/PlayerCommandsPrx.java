@@ -250,6 +250,42 @@ public interface PlayerCommandsPrx extends com.zeroc.Ice.ObjectPrx
         return f;
     }
 
+    default void removeFile(String song)
+    {
+        removeFile(song, com.zeroc.Ice.ObjectPrx.noExplicitContext);
+    }
+
+    default void removeFile(String song, java.util.Map<String, String> context)
+    {
+        _iceI_removeFileAsync(song, context, true).waitForResponse();
+    }
+
+    default java.util.concurrent.CompletableFuture<Void> removeFileAsync(String song)
+    {
+        return _iceI_removeFileAsync(song, com.zeroc.Ice.ObjectPrx.noExplicitContext, false);
+    }
+
+    default java.util.concurrent.CompletableFuture<Void> removeFileAsync(String song, java.util.Map<String, String> context)
+    {
+        return _iceI_removeFileAsync(song, context, false);
+    }
+
+    /**
+     * @hidden
+     * @param iceP_song -
+     * @param context -
+     * @param sync -
+     * @return -
+     **/
+    default com.zeroc.IceInternal.OutgoingAsync<Void> _iceI_removeFileAsync(String iceP_song, java.util.Map<String, String> context, boolean sync)
+    {
+        com.zeroc.IceInternal.OutgoingAsync<Void> f = new com.zeroc.IceInternal.OutgoingAsync<>(this, "removeFile", null, sync, null);
+        f.invoke(false, context, null, ostr -> {
+                     ostr.writeString(iceP_song);
+                 }, null);
+        return f;
+    }
+
     /**
      * Contacts the remote server to verify that the object implements this type.
      * Raises a local exception if a communication error occurs.
