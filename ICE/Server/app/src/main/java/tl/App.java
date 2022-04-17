@@ -3,19 +3,28 @@
  */
 package tl;
 
+import com.zeroc.Ice.ObjectAdapter;
+import com.zeroc.Ice.Object;
+import com.zeroc.Ice.Communicator;
+import com.zeroc.Ice.LocalException;
+import com.zeroc.Ice.Util;
+
 public class App {
     public static void main(String[] args) {
-        StreamHttp streamHttp = new StreamHttp("/home/tom/Musique/french-lesson-numbers-1-100-compter-jusqua-100-learn-french.mp3" , "localhost", 5555);
+        StreamHttp streamHttp = new StreamHttp("localhost", 5555);
         Thread t1 = new Thread(streamHttp);
         t1.start();
 
-        try(com.zeroc.Ice.Communicator communicator = com.zeroc.Ice.Util.initialize(args))
+        try(Communicator communicator = Util.initialize(args))
         {
-            com.zeroc.Ice.ObjectAdapter adapter = communicator.createObjectAdapterWithEndpoints("PlayerAdapter", "default -p 10000");
-            com.zeroc.Ice.Object object = new Player(streamHttp);
-            adapter.add(object, com.zeroc.Ice.Util.stringToIdentity("player"));
+            ObjectAdapter adapter = communicator.createObjectAdapterWithEndpoints("PlayerAdapter", "default -p 10000");
+            Object object = new Player(streamHttp);
+            adapter.add(object,Util.stringToIdentity("player"));
             adapter.activate();
+            System.out.println("Player ready");
             communicator.waitForShutdown();
+        } catch (LocalException e) {
+            e.printStackTrace();
         }
     }
 }

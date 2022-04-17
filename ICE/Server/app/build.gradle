@@ -29,6 +29,9 @@ dependencies {
     implementation 'com.zeroc:ice:3.7.2'
 
     implementation 'uk.co.caprica:vlcj:4.7.2'
+
+    // https://mvnrepository.com/artifact/commons-net/commons-net
+    implementation group: 'commons-net', name: 'commons-net', version: '3.8.0'
 }
 
 application {

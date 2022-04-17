@@ -4,6 +4,7 @@ const { app, BrowserWindow, ipcMain } = require('electron');
 const isDev = require('electron-is-dev');
 const Ice = require("ice").Ice;
 const PlayerCommand = require("./PlayerCommands").tl;
+const fs = require('fs')
 
 function createWindow() {
     // Create the browser window.
@@ -60,17 +61,15 @@ app.on('activate', () => {
 });
 
 let player = null
-let file = null
 let communicator = null
 
 async function startIce() {
     try {
-        communicator = Ice.initialize();
-        const base = communicator.stringToProxy("player:default -p 10000");
-        player = await PlayerCommand.PlayerCommandsPrx.checkedCast(base).then(r => console.log(r));
-    } catch (ex) {
-        console.log(ex.toString());
-        process.exitCode = 1;
+        communicator = Ice.initialize()
+        const base = communicator.stringToProxy("player:default -p 10000")
+        player = await PlayerCommand.PlayerCommandsPrx.checkedCast(base)
+    } catch (e) {
+        console.log(e)
         await endIce()
     }
 }
@@ -84,33 +83,35 @@ async function endIce() {
 async function executeCommand(data) {
     let cmd = data.cmd
     let bool = data.state
-    if(player == null || file == null) {
-        startIce().then(() => {
-            console.log(executeCommand(cmd))
-            return "Ice started"
-        })
+    if(player == null) {
+        startIce().then(() => {return "Ice started"})
         return "Player is null"
     }
-    switch (cmd) {
-        case "play":
-            await player.play(bool)
-            return bool ? "Playing" : "Pausing"
-        case "stop":
-            await player.stop()
-            return "Stopping"
-        case "repeat":
-            await player.repeat(bool)
-            return bool ? "RepeatOn" : "RepeatOff"
-        case "volume":
-            await player.volume(data.value)
-            return "Volume at " + data.value
-        case "playSong":
-            await player.playSong(data.value)
-            return "Playing " + data.value
-        case "sendFile":
-            await player.sendFile(data.value)
-            return "Sending " + data.value
-        default:
-            return "Unknown command"
+    try {
+        switch (cmd) {
+            case "play":
+                await player.play(bool)
+                return bool ? "Playing" : "Pausing"
+            case "stop":
+                await player.stop()
+                return "Stopping"
+            case "repeat":
+                await player.repeat(bool)
+                return bool ? "RepeatOn" : "RepeatOff"
+            case "volume":
+                await player.volume(data.value)
+                return "Volume at " + data.value
+            case "playSong":
+                await player.playSong(data.value)
+                return "Playing " + data.value
+            case "sendFile":
+                await player.downloadFile(data.value)
+                return "Sending " + data.value
+            default:
+                return "Unknown command"
+        }
+    } catch (e) {
+        console.log(e)
+        return "Error"
     }
 }

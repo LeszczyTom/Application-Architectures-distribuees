@@ -24,8 +24,6 @@
 
     let tl = _ModuleRegistry.module("tl");
 
-    Slice.defineSequence(tl, "fileHelper", "Ice.ByteHelper", true);
-
     const iceC_tl_PlayerCommands_ids = [
         "::Ice::Object",
         "::tl::PlayerCommands"
@@ -46,8 +44,7 @@
         "stop": [, , , , [1], , , , , ],
         "repeat": [, , , , [1], [[1]], , , , ],
         "volume": [, , , , [1], [[3]], , , , ],
-        "send": [, , , , , [["tl.fileHelper"]], , , , ],
-        "receive": [, , , , , [["tl.fileHelper"]], , , , ]
+        "downloadFile": [, , , , , [[7]], , , , ]
     });
     exports.tl = tl;
 }

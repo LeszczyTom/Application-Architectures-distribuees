@@ -1,0 +1,11 @@
+{
+  "name": "Server FTP",
+  "version": "1.0.0",
+  "dependencies": {
+    "ftp-srv": "^4.5.0"
+  },
+  "scripts": {
+    "start": "sudo node server"
+  },
+  "author": "Leszczynski Tom"
+}

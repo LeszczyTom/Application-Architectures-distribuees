@@ -4,12 +4,10 @@ import uk.co.caprica.vlcj.player.base.MediaPlayer;
 
 public class StreamHttp implements Runnable {
 
-    private final String media;
     private final String options;
     MediaPlayer mediaPlayer;
 
-    public StreamHttp(String media, String serverAddress, int serverPort) {
-        this.media = media;
+    public StreamHttp(String serverAddress, int serverPort) {
         this.options = formatHttpStream(serverAddress, serverPort); //formatHttpStream("localhost", 5555)
     }
 
@@ -36,10 +34,9 @@ public class StreamHttp implements Runnable {
     }
 
     public void startPlayer() {
-        MediaPlayerFactory mediaPlayerFactory = new MediaPlayerFactory(media);
+        MediaPlayerFactory mediaPlayerFactory = new MediaPlayerFactory();
         mediaPlayer = mediaPlayerFactory.mediaPlayers().newMediaPlayer();
-        mediaPlayer.media().play(media, options);
-        System.out.println("Streaming: " + media);
+        mediaPlayer.media().play("/home/tom/Musique/french-lesson-numbers-1-100-compter-jusqua-100-learn-french.mp3", options);
     }
 
     public void controlPlay() {
