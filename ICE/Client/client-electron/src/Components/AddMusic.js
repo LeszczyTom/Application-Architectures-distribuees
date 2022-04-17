@@ -5,8 +5,8 @@ function AddMusic(props) {
     const [title, setTitle] = React.useState("")
     const [artist, setArtist] = React.useState("")
     const [album, setAlbum] = React.useState("")
-    const [duration, setDuration] = React.useState("")
-    const [cover, setCover] = React.useState("")
+    const [duration, setDuration] = React.useState("10:00")
+    const [cover, setCover] = React.useState("https://picsum.photos/200")
 
     const cleanUpFileName = (name) => {
         let tmp = name.split("\\")
@@ -14,18 +14,17 @@ function AddMusic(props) {
     }
 
     const handleAction = () => {
-        /*if(!/^[a-z ,.'-]+$/i.test(album)) return alert("Album name is not valid")
-        if(!/^[a-z ,.'-]+$/i.test(artist)) return alert("Artist name is not valid")
+        if(album === "") return alert("Album name is not valid")
+        if(artist === "") return alert("Artist name is not valid")
         if(!/([0-9]*):([0-9]*)/.test(duration)) return alert("Duration is not valid")
-        if(!/^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w.-]+)+[\w\-._~:/?#[\]@!$&'()*+,;=]+$/.test(cover)) return alert("Cover is not valid")
-        if(!/^[a-z ,.'-()]+$/i.test(title)) return alert("Title is not valid")
-        props.addToDb(album, artist, duration, cover, title, fileName)*/
+        if("") return alert("Title is not valid")
+        props.addToDb(album, artist, duration, cover, title, fileName)
 
-        //getAsByteArray(inputFileRef.current.files[0])
-        window["electronAPI"].playerCommand({cmd: "sendFile", value : fileName})
-        /*if(props.error)
+        window["electronAPI"].playerCommand({cmd: "sendFile", name: fileName})
+
+        if(props.error)
             return alert(props.error)
-        props.setView("musicList")*/
+        props.setView("musicList")
     }
 
     return (
@@ -45,10 +44,12 @@ function AddMusic(props) {
                        className={"mt-4 h-[40px] bg-neutral-800 rounded-lg border-2 bg-black border border-neutral-600 px-3 focus:border-[#1DB954]"}/>
                 <input type={"text"}
                        placeholder={"Lien de la pochette de l'album"}
+                       value={cover}
                        onChange={(ev) => setCover(ev.target.value)}
                        className={"mt-4 h-[40px] bg-neutral-800 rounded-lg border-2 bg-black border border-neutral-600 px-3 focus:border-[#1DB954]"}/>
                 <input type={"text"}
                        placeholder={"Durée"}
+                       value={duration}
                        onChange={(ev) => setDuration(ev.target.value)}
                        className={"mt-4 h-[40px] bg-neutral-800 rounded-lg border-2 bg-black border border-neutral-600 px-3 focus:border-[#1DB954]"}/>
                 <div className={"flex w-full mt-4"}>

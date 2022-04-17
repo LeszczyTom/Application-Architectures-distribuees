@@ -4,7 +4,7 @@ const { app, BrowserWindow, ipcMain } = require('electron');
 const isDev = require('electron-is-dev');
 const Ice = require("ice").Ice;
 const PlayerCommand = require("./PlayerCommands").tl;
-const fs = require('fs')
+const fs = require('fs');
 
 function createWindow() {
     // Create the browser window.
@@ -31,9 +31,9 @@ function createWindow() {
             : `file://${path.join(__dirname, '../build/index.html')}`
     );
     // Open the DevTools.
-    if (isDev) {
+    //if (isDev) {
         win.webContents.openDevTools({ mode: 'detach' });
-    }
+    //}
 }
 
 // This method will be called when Electron has finished
@@ -105,8 +105,11 @@ async function executeCommand(data) {
                 await player.playSong(data.value)
                 return "Playing " + data.value
             case "sendFile":
-                await player.downloadFile(data.value)
-                return "Sending " + data.value
+                await player.downloadFile(data.name)
+                return "Sending " + data.name
+            case "removeFile":
+                await player.removeFile(data.name)
+                return "Removing " + data.name
             default:
                 return "Unknown command"
         }

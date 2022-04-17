@@ -9,7 +9,7 @@ const ftpServer = new FtpSrv({
 
 ftpServer.on('login', (data, resolve, reject) => {
     if(data.username === 'anonymous' && data.password === '@anonymous'){
-        return resolve({ root:"/home/tom/Musique/"});
+        return resolve({ root:__dirname + "/Musics" });
     }
     return reject( new Error('Invalid username or password') );
 });

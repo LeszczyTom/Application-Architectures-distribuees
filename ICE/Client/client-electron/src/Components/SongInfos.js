@@ -18,6 +18,7 @@ function SongInfos(props) {
     }
 
     const handleDeleteAction = () => {
+        window["electronAPI"].playerCommand({cmd: "removeFile", name: cleanUpFileName(fileURI)})
         props.deleteSong(props.song.id);
         if(props.error) return alert("Error while deleting song");
         props.setView("musicList");
