@@ -3,11 +3,8 @@
  */
 package tl;
 
-import com.zeroc.Ice.ObjectAdapter;
+import com.zeroc.Ice.*;
 import com.zeroc.Ice.Object;
-import com.zeroc.Ice.Communicator;
-import com.zeroc.Ice.LocalException;
-import com.zeroc.Ice.Util;
 
 public class App {
 
@@ -20,9 +17,14 @@ public class App {
 
         try(Communicator communicator = Util.initialize(args))
         {
-            ObjectAdapter adapter = communicator.createObjectAdapterWithEndpoints("PlayerAdapter", "default -p 10000");
+            Properties properties = communicator.getProperties();
             Object object = new Player(streamHttp);
-            adapter.add(object,Util.stringToIdentity("player"));
+
+            ObjectAdapter adapter = communicator.createObjectAdapter(properties.getProperty("PlayerAdapter.AdapterId")); //"default -p 10000"
+
+            System.out.println(adapter.getEndpoints()[0]);
+
+            adapter.add(object, Util.stringToIdentity("player"));
             adapter.activate();
             System.out.println("Player ready");
             communicator.waitForShutdown();

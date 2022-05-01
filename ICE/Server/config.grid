@@ -1,0 +1,14 @@
+#
+# The IceGrid instance name.
+#
+IceGrid.InstanceName=AppStreaming
+
+#
+# The IceGrid locator proxy.
+#
+Ice.Default.Locator=IceGrid/Locator:tcp -h localhost -p 12000
+
+
+PlayerAdapter.Endpoints=tcp
+PlayerAdapter.AdapterId=PlayerAdapter
+

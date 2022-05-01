@@ -1,10 +1,11 @@
 const path = require('path');
 
+require('dotenv').config({path: "app/.env"});
+
 const { app, BrowserWindow, ipcMain } = require('electron');
 const isDev = require('electron-is-dev');
 const Ice = require("ice").Ice;
 const PlayerCommand = require("./PlayerCommands").tl;
-const fs = require('fs');
 
 function createWindow() {
     // Create the browser window.
@@ -65,8 +66,16 @@ let communicator = null
 
 async function startIce() {
     try {
-        communicator = Ice.initialize()
-        const base = communicator.stringToProxy("player:default -p 10000")
+        // Create Initialization Data for the Ice Communicator
+        let id = new Ice.InitializationData()
+        id.properties = Ice.createProperties()
+        id.properties.setProperty("Ice.Default.Locator", process.env.ICE_DEFAULT_LOCATOR)
+
+        // Create the Ice Communicator with the Initialization Data
+        communicator = Ice.initialize(id)
+
+        const base = communicator.stringToProxy("player@PlayerAdapter")
+
         player = await PlayerCommand.PlayerCommandsPrx.checkedCast(base)
     } catch (e) {
         console.log(e)
