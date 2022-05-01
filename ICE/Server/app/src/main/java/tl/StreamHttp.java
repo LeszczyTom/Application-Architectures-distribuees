@@ -2,25 +2,24 @@ package tl;
 import uk.co.caprica.vlcj.factory.MediaPlayerFactory;
 import uk.co.caprica.vlcj.player.base.MediaPlayer;
 
+import java.util.Objects;
+
 public class StreamHttp implements Runnable {
 
     private final String options;
     MediaPlayer mediaPlayer;
-    private final String FOLDER = "/home/tom/IdeaProjects/Application-Architectures-distribuees/ICE/Server/app/src/main/resources/";
 
     public StreamHttp(String serverAddress, int serverPort) {
         this.options = formatHttpStream(serverAddress, serverPort); //formatHttpStream("localhost", 5555)
     }
 
     private String formatHttpStream(String serverAddress, int serverPort) {
-        StringBuilder sb = new StringBuilder(60);
-        sb.append(":sout=#duplicate{dst=std{access=http,mux=mp3,");
-        sb.append("dst=");
-        sb.append(serverAddress);
-        sb.append(':');
-        sb.append(serverPort);
-        sb.append("}}");
-        return sb.toString();
+        return ":sout=#duplicate{dst=std{access=http,mux=mp3," +
+                "dst=" +
+                serverAddress +
+                ':' +
+                serverPort +
+                "}}";
     }
 
     @Override
@@ -37,7 +36,7 @@ public class StreamHttp implements Runnable {
     public void startPlayer() {
         MediaPlayerFactory mediaPlayerFactory = new MediaPlayerFactory();
         mediaPlayer = mediaPlayerFactory.mediaPlayers().newMediaPlayer();
-        mediaPlayer.media().play(FOLDER + "/music-sounds-better-with-you.mp3", options);
+        mediaPlayer.media().play(Objects.requireNonNull(getClass().getClassLoader().getResource("2-seconds-of-silence.mp3")).getPath(), options);
     }
 
     public void controlPlay() {

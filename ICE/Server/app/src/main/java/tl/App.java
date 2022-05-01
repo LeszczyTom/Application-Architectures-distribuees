@@ -10,6 +10,9 @@ import com.zeroc.Ice.LocalException;
 import com.zeroc.Ice.Util;
 
 public class App {
+
+    protected final static String FOLDER = "/home/tom/Project/Application-Architectures-distribuees/ICE/Server/app/src/main/resources/";
+
     public static void main(String[] args) {
         StreamHttp streamHttp = new StreamHttp("localhost", 5555);
         Thread t1 = new Thread(streamHttp);

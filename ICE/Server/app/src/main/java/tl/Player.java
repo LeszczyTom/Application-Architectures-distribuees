@@ -7,8 +7,7 @@ import java.io.File;
 public class Player implements PlayerCommands {
 
     private final StreamHttp streamHttp;
-    private ClientFtp clientFtp;
-    private final String FOLDER = "/home/tom/IdeaProjects/Application-Architectures-distribuees/ICE/Server/app/src/main/resources/";
+    private final ClientFtp clientFtp;
 
     public Player(StreamHttp streamHttp) {
         this.streamHttp = streamHttp;
@@ -16,7 +15,7 @@ public class Player implements PlayerCommands {
     }
 
     private String getUri(String song) {
-        return FOLDER + song;
+        return App.FOLDER + song;
     }
 
     @Override
@@ -67,8 +66,8 @@ public class Player implements PlayerCommands {
 
     @Override
     public void removeFile(String song, Current current) {
-        System.out.println(FOLDER + song);
-        File file = new File(FOLDER + song);
+        System.out.println(App.FOLDER + song);
+        File file = new File(App.FOLDER + song);
 
         if (file.delete()) {
             System.out.println("File deleted successfully");

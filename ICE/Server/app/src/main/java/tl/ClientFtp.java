@@ -10,8 +10,6 @@ public class ClientFtp {
     private String pass;
     private int port;
 
-    private final String FOLDER = "/home/tom/IdeaProjects/Application-Architectures-distribuees/ICE/Server/app/src/main/resources/";
-
     public ClientFtp(String host, int port, String user, String pass) {
         try {
             ftpClient = new FTPClient();
@@ -43,7 +41,7 @@ public class ClientFtp {
 
     public void downloadFile(String remoteFile) {
         try {
-            ftpClient.retrieveFile("/" + remoteFile, new java.io.FileOutputStream(FOLDER + remoteFile));
+            ftpClient.retrieveFile("/" + remoteFile, new java.io.FileOutputStream(App.FOLDER + remoteFile));
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
         }

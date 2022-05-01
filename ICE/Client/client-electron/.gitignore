@@ -25,3 +25,4 @@ yarn-error.log*
 /dist/
 /dist/*
 app/API/.env
+/app/.env
