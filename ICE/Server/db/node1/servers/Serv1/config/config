@@ -1,0 +1,12 @@
+# Configuration file (05/02/22 21:40:22.952)
+
+# Server configuration
+Ice.Admin.ServerId=Serv1
+Ice.Admin.Endpoints=tcp -h localhost
+Ice.ProgramName=Serv1
+# Object adapter PlayerAdapter
+PlayerAdapter.Endpoints=tcp
+PlayerAdapter.AdapterId=Serv1.PlayerAdapter
+# Server descriptor properties
+Identity=player1
+Ice.Default.Locator=IceGrid/Locator:tcp -h localhost -p 12000

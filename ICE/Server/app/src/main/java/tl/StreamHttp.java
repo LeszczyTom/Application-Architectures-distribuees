@@ -36,21 +36,27 @@ public class StreamHttp implements Runnable {
     public void startPlayer() {
         MediaPlayerFactory mediaPlayerFactory = new MediaPlayerFactory();
         mediaPlayer = mediaPlayerFactory.mediaPlayers().newMediaPlayer();
-        mediaPlayer.media().play(Objects.requireNonNull(getClass().getClassLoader().getResource("2-seconds-of-silence.mp3")).getPath(), options);
+        mediaPlayer.media().play("/home/tom/Project/Application-Architectures-distribuees/ICE/Server/app/src/main/resources/2-seconds-of-silence.mp3", options);
+    }
+
+    public void playSong(String song) {
+        mediaPlayer.media().play(song, options);
     }
 
     public void controlPlay() {
-        if(mediaPlayer == null) startPlayer();
+        if (mediaPlayer == null) startPlayer();
         mediaPlayer.controls().play();
     }
 
     public void controlPause() {
+        if (mediaPlayer == null) startPlayer();
         mediaPlayer.controls().pause();
     }
 
     public void controlStop() {
-        mediaPlayer.controls().stop();
-        mediaPlayer.release();
+        if(mediaPlayer != null) {
+            mediaPlayer.controls().pause();
+        }
     }
 
     public void controlRepeat(boolean repeat) {

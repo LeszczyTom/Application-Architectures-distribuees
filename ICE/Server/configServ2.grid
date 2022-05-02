@@ -9,6 +9,6 @@ IceGrid.InstanceName=AppStreaming
 Ice.Default.Locator=IceGrid/Locator:tcp -h localhost -p 12000
 
 
-PlayerAdapter.Endpoints=tcp
-PlayerAdapter.AdapterId=PlayerAdapter
+Serv2.Endpoints=tcp
+PlayerAdapter.AdapterId=Serv2
 

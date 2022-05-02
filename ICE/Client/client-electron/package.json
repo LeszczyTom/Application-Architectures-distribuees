@@ -3,31 +3,41 @@
   "version": "0.1.0",
   "private": true,
   "main": "app/index.js",
+  "description": "Client electron pour l'UE Middleware",
+  "license": "UNLICENSED",
   "author": {
     "name": "Leszczynski Tom",
     "email": "leszczytom@gmail.com"
   },
   "dependencies": {
-
     "aws-sdk": "^2.1106.0",
     "cors": "^2.8.5",
     "dotenv": "^16.0.0",
+    "electron-squirrel-startup": "^1.0.0",
     "express": "^4.17.3",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "react-scripts": "^5.0.0",
     "util": "^0.12.4",
     "uuid": "^8.3.2",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "concurrently": "^7.0.0",
+    "electron": "^18.0.1",
+    "electron-is-dev": "^2.0.0",
+    "ice": "^3.7.71",
+    "tailwindcss": "^3.0.23",
+    "wait-on": "^6.0.1"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "electron-forge start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "dev": "concurrently -k \"BROWSER=none npm start\" \"npm:electron\"",
     "electron": "wait-on tcp:3000 && electron .",
-    "elec": "electron ."
+    "elec": "electron .",
+    "package": "electron-forge package",
+    "make": "electron-forge make"
   },
   "eslintConfig": {
     "extends": [
@@ -48,11 +58,43 @@
     ]
   },
   "devDependencies": {
+    "@electron-forge/cli": "^6.0.0-beta.63",
+    "@electron-forge/maker-deb": "^6.0.0-beta.63",
+    "@electron-forge/maker-rpm": "^6.0.0-beta.63",
+    "@electron-forge/maker-squirrel": "^6.0.0-beta.63",
+    "@electron-forge/maker-zip": "^6.0.0-beta.63",
     "concurrently": "^7.0.0",
     "electron": "^18.0.1",
     "electron-is-dev": "^2.0.0",
+    "ice": "^3.7.71",
     "tailwindcss": "^3.0.23",
-    "wait-on": "^6.0.1",
-    "ice": "^3.7.71"
+    "wait-on": "^6.0.1"
+  },
+  "config": {
+    "forge": {
+      "packagerConfig": {},
+      "makers": [
+        {
+          "name": "@electron-forge/maker-squirrel",
+          "config": {
+            "name": "client_electron"
+          }
+        },
+        {
+          "name": "@electron-forge/maker-zip",
+          "platforms": [
+            "darwin"
+          ]
+        },
+        {
+          "name": "@electron-forge/maker-deb",
+          "config": {}
+        },
+        {
+          "name": "@electron-forge/maker-rpm",
+          "config": {}
+        }
+      ]
+    }
   }
 }

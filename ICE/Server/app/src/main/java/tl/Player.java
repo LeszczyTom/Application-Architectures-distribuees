@@ -31,7 +31,7 @@ public class Player implements PlayerCommands {
 
     @Override
     public boolean playSong(String song, Current current) {
-        streamHttp.mediaPlayer.media().play(getUri(song));
+        streamHttp.playSong(getUri(song));
         return true;
     }
 

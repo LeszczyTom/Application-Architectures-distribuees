@@ -6,30 +6,61 @@ package tl;
 import com.zeroc.Ice.*;
 import com.zeroc.Ice.Object;
 
+import java.util.Arrays;
+
 public class App {
 
     protected final static String FOLDER = "/home/tom/Project/Application-Architectures-distribuees/ICE/Server/app/src/main/resources/";
 
     public static void main(String[] args) {
-        StreamHttp streamHttp = new StreamHttp("localhost", 5555);
-        Thread t1 = new Thread(streamHttp);
-        t1.start();
 
-        try(Communicator communicator = Util.initialize(args))
+        int status = 0;
+        java.util.List<String> extraArgs = new java.util.ArrayList<String>();
+
+        //
+        // Try with resources block - communicator is automatically destroyed
+        // at the end of this try block
+        //
+        try(com.zeroc.Ice.Communicator communicator = com.zeroc.Ice.Util.initialize(args, extraArgs))
         {
-            Properties properties = communicator.getProperties();
-            Object object = new Player(streamHttp);
+            communicator.getProperties().setProperty("Ice.Default.Package", "tl");
+            //
+            // Install shutdown hook to (also) destroy communicator during JVM shutdown.
+            // This ensures the communicator gets destroyed when the user interrupts the application with Ctrl-C.
+            //
+            Runtime.getRuntime().addShutdownHook(new Thread(() -> communicator.destroy()));
 
-            ObjectAdapter adapter = communicator.createObjectAdapter(properties.getProperty("PlayerAdapter.AdapterId")); //"default -p 10000"
+            if(!extraArgs.isEmpty())
+            {
+                System.err.println("too many arguments");
+                status = 1;
+            }
+            else
+            {
+                ObjectAdapter adapter = communicator.createObjectAdapter("PlayerAdapter");
+                Properties properties = communicator.getProperties();
+                Identity id = Util.stringToIdentity(properties.getProperty("Identity"));
+                StreamHttp streamHttp;
+                if (properties.getProperty("Ice.Admin.ServerId").equals("Serv1")) {
+                    System.out.println("Serv1");
+                    streamHttp = new StreamHttp("localhost", 5555);
+                } else {
+                    System.out.println("Serv2");
+                    streamHttp = new StreamHttp("localhost", 5556);
+                }
 
-            System.out.println(adapter.getEndpoints()[0]);
+                Thread t1 = new Thread(streamHttp);
+                t1.start();
 
-            adapter.add(object, Util.stringToIdentity("player"));
-            adapter.activate();
-            System.out.println("Player ready");
-            communicator.waitForShutdown();
-        } catch (LocalException e) {
-            e.printStackTrace();
+                adapter.add(new Player(streamHttp), id);
+                adapter.activate();
+
+                communicator.waitForShutdown();
+            }
         }
+
+        System.exit(status);
     }
 }
+
+
