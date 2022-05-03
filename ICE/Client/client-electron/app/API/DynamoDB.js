@@ -22,7 +22,7 @@ class DynamoDB {
         return this.#executeCmd(`SELECT * FROM ${this.#dbName}`)
     }
 
-    async addToDb(Album, Artist, SongTitle, Duration, Cover, Favorite, URI) {
+    async addToDb(Album, Artist, SongTitle, Duration, Cover, Favorite, URI, ServerId) {
         const id = uuid().substr(0,23)
         return this.#executeCmd(
             `INSERT INTO ${this.#dbName} VALUE ({
@@ -33,7 +33,8 @@ class DynamoDB {
                     'Favorite': '${Favorite}', 
                     'Cover': '${Cover}', 
                     'SongTitle': '${SongTitle}',
-                    'URI': '${URI}'
+                    'URI': '${URI}',
+                    'ServerId': '${ServerId}'
                     });`
         )
     }

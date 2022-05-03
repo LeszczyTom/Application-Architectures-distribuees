@@ -7,6 +7,7 @@ function AddMusic(props) {
     const [album, setAlbum] = React.useState("")
     const [duration, setDuration] = React.useState("10:00")
     const [cover, setCover] = React.useState("https://picsum.photos/200")
+    const [serverId, setServerId] = React.useState(0)
 
     const cleanUpFileName = (name) => {
         let tmp = name.split("\\")
@@ -18,9 +19,9 @@ function AddMusic(props) {
         if(artist === "") return alert("Artist name is not valid")
         if(!/([0-9]*):([0-9]*)/.test(duration)) return alert("Duration is not valid")
         if("") return alert("Title is not valid")
-        props.addToDb(album, artist, duration, cover, title, fileName)
+        props.addToDb(album, artist, duration, cover, title, fileName, serverId)
 
-        window["electronAPI"].playerCommand({cmd: "sendFile", name: fileName})
+        window["electronAPI"].playerCommand({cmd: "sendFile", name: fileName, serverId: serverId})
 
         if(props.error)
             return alert(props.error)
@@ -60,6 +61,14 @@ function AddMusic(props) {
                     <div className={"w-[354px] h-[40px] border-2 border-neutral-600 rounded-lg px-3 my-auto bg-neutral-800 flex"}>
                         <p className={"my-auto overflow-hidden whitespace-nowrap overflow-ellipsis"}>{fileName}</p>
                     </div>
+                </div>
+                <div className={"flex m-auto mt-4"}>
+                    <label className={"mx-2"}><input type={"checkbox"} className={"w-[20px] h-[20px] mr-1"} checked={serverId === 0} onClick={() => {setServerId(0)
+                    console.log(serverId)}}/>Serveur 1</label>
+                    <label className={"mx-2"}><input type={"checkbox"} className={"w-[20px] h-[20px] mr-1"} checked={serverId === 1} onClick={() => {
+                        setServerId(1)
+                        console.log(serverId)
+                    }}/>Serveur 2</label>
                 </div>
                 <input type={"submit"}
                        value={"Ajouter la musique"}

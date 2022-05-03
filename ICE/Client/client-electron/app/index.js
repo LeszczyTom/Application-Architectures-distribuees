@@ -7,6 +7,10 @@ const isDev = require('electron-is-dev');
 const Ice = require("ice").Ice;
 const PlayerCommand = require("./PlayerCommands").tl;
 
+let player1 = null
+let player2 = null
+let communicator = null
+
 function createWindow() {
     // Create the browser window.
     const win = new BrowserWindow({
@@ -61,8 +65,6 @@ app.on('activate', () => {
     }
 });
 
-let player = null
-let communicator = null
 
 async function startIce() {
     try {
@@ -74,9 +76,9 @@ async function startIce() {
         // Create the Ice Communicator with the Initialization Data
         communicator = Ice.initialize(id)
 
-        const base = communicator.stringToProxy("player@PlayerAdapter")
+        player1 = await PlayerCommand.PlayerCommandsPrx.checkedCast(communicator.stringToProxy("player1@Serv1.PlayerAdapter"))
+        player2 = await PlayerCommand.PlayerCommandsPrx.checkedCast(communicator.stringToProxy("player2@Serv2.PlayerAdapter"))
 
-        player = await PlayerCommand.PlayerCommandsPrx.checkedCast(base)
     } catch (e) {
         console.log(e)
         await endIce()
@@ -92,32 +94,57 @@ async function endIce() {
 async function executeCommand(data) {
     let cmd = data.cmd
     let bool = data.state
-    if(player == null) {
+    console.log(data.serverId)
+
+    if(player1 == null || player2 == null) {
         startIce().then(() => {return "Ice started"})
         return "Player is null"
     }
     try {
         switch (cmd) {
             case "play":
-                await player.play(bool)
+                if (data.serverId === "0") {
+                    console.log("Serv1")
+                    await player1.play(bool)
+                    if(bool) await player2.play(false)
+                 }
+                else {
+                    console.log("Serv2")
+                    await player2.play(bool)
+                    if(bool) await player1.play(false)
+                }
                 return bool ? "Playing" : "Pausing"
             case "stop":
-                await player.stop()
+                if (data.serverId === "0") await player1.stop()
+                else await player2.stop()
                 return "Stopping"
             case "repeat":
-                await player.repeat(bool)
+                if (data.serverId === "0") await player1.repeat(bool)
+                else await player2.repeat(bool)
                 return bool ? "RepeatOn" : "RepeatOff"
             case "volume":
-                await player.volume(data.value)
+                if (data.serverId === "0") await player1.volume(data.volume)
+                else await player2.volume(data.volume)
                 return "Volume at " + data.value
             case "playSong":
-                await player.playSong(data.value)
+                if (data.serverId === "0") {
+                    console.log("Serv1")
+                    await player1.playSong(data.value)
+                    await player2.play(false)
+                }
+                else {
+                    console.log("Serv2")
+                    await player2.playSong(data.value)
+                    await player1.play(false)
+                }
                 return "Playing " + data.value
             case "sendFile":
-                await player.downloadFile(data.name)
+                if (data.serverId === "0") await player1.downloadFile(data.name)
+                else await player2.downloadFile(data.name)
                 return "Sending " + data.name
             case "removeFile":
-                await player.removeFile(data.name)
+                if (data.serverId === "0") await player1.removeFile(data.name)
+                else await player2.removeFile(data.name)
                 return "Removing " + data.name
             default:
                 return "Unknown command"

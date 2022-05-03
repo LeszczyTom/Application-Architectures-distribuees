@@ -32,10 +32,12 @@ function MusicList(props) {
             fileURI: musique.URI.S,
             duration: musique.Duration.S,
             favorite: musique.Favorite.S,
+            serverId: musique.ServerId.S,
         })
         props.changeIndex(key)
         console.log(key + "handlePlayButton")
-        window["electronAPI"].playerCommand({cmd: "playSong", value: musique.URI.S})
+        console.log(musique)
+        window["electronAPI"].playerCommand({cmd: "playSong", value: musique.URI.S, serverId: musique.ServerId.S})
     }
 
     return (

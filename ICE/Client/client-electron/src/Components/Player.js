@@ -32,6 +32,7 @@ function Player(props) {
     const [artist, setArtist] = React.useState("Artiste")
     const [cover, setCover] = React.useState("https://picsum.photos/45")
     const refVideoStream = React.createRef()
+    const refVideoStream2 = React.createRef()
 
     useEffect(() => {
         if(title !== props.useQueue.playingSong.title) {
@@ -48,11 +49,11 @@ function Player(props) {
         if(muted) {
             setMuted(false)
             setSrc(handleSrc())
-            window["electronAPI"].playerCommand({cmd: "volume", value: volume})
+            window["electronAPI"].playerCommand({cmd: "volume", value: volume, serverId: props.useQueue.playingSong.serverId})
         } else {
             setMuted(true)
             setSrc(volumeOff)
-            window["electronAPI"].playerCommand({cmd: "volume", value: 0})
+            window["electronAPI"].playerCommand({cmd: "volume", value: 0, serverId: props.useQueue.playingSong.serverId})
         }
     }
 
@@ -62,7 +63,7 @@ function Player(props) {
         clearTimeout(timeout)
         if(!muted) {
             setSrc(handleSrc())
-            timeout = setTimeout(() => window["electronAPI"].playerCommand({cmd: "volume", value: volume}), 500)
+            timeout = setTimeout(() => window["electronAPI"].playerCommand({cmd: "volume", value: volume, serverId: props.useQueue.playingSong.serverId}), 500)
         }
     }
 
@@ -101,24 +102,36 @@ function Player(props) {
     }
 
     const handleRepeatAction = () => {
-        window["electronAPI"].playerCommand({cmd: "repeat", state: !repeat})
+        window["electronAPI"].playerCommand({cmd: "repeat", state: !repeat, serverId: props.useQueue.playingSong.serverId})
         setRepeat(!repeat)
     }
 
     const handlePlayPauseAction = () => {
-        window['electronAPI'].playerCommand({cmd: "play", state: playing})
+        console.log(playing)
+        window['electronAPI'].playerCommand({cmd: "play", state: playing, serverId: props.useQueue.playingSong.serverId})
+        console.log("Server ID: " + props.useQueue.playingSong.serverId)
         if(playing) {
-            refVideoStream.current.src = "http://127.0.0.1:5555"
-            refVideoStream.current.load()
-            refVideoStream.current.play()
+            if(props.useQueue.playingSong.serverId === "0") {
+                console.log("Serv1")
+                refVideoStream.current.src = "http://127.0.0.1:5555"
+                refVideoStream.current.load()
+                refVideoStream.current.play()
+            } else {
+                console.log("Serv2")
+                refVideoStream2.current.src = "http://127.0.0.1:5556"
+                refVideoStream2.current.load()
+                refVideoStream2.current.play()
+            }
         } else {
             refVideoStream.current.pause()
+            refVideoStream2.current.pause()
         }
     }
 
     return (
         <div className={"flex bg-neutral-800 w-full h-[90px] mb-0 border-t border-neutral-600"}>
             <video ref={refVideoStream} datatype={"audio/mp3"} autoPlay={false} src={"http://127.0.0.1:5555"} className={"w-0 h-0"}/>
+            <video ref={refVideoStream2} datatype={"audio/mp3"} autoPlay={false} src={"http://127.0.0.1:5556"} className={"w-0 h-0"}/>
             <img draggable={false} src={cover} className={"h-[50px] w-[50px] my-auto ml-5 mr-2 rounded-xl hover:cursor-pointer bg-neutral-700 overflow-hidden text-xs"} alt={"album musique joué"}/>
             <div className={"flex text-white my-auto ml-2 text-sm w-[360px]"}>
                 <div className={"flex flex-col mr-5"}>

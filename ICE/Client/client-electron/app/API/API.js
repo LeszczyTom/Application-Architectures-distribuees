@@ -25,7 +25,7 @@ app.get('/deleteFromDbById/:id', (req,res) => {
 })
 
 app.get('/addToDb', (req,res) => {
-    db.addToDb(req.query.album, req.query.artist, req.query.title, req.query.duration, req.query.cover, req.query.favorite, req.query.URI).then(data => res.send(data))
+    db.addToDb(req.query.album, req.query.artist, req.query.title, req.query.duration, req.query.cover, req.query.favorite, req.query.URI, req.query.ServerId).then(data => res.send(data))
 })
 
 app.get('/updateSongInDbById/:id', (req,res) => {

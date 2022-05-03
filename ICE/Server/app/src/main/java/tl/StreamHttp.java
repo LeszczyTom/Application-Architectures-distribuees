@@ -7,10 +7,15 @@ import java.util.Objects;
 public class StreamHttp implements Runnable {
 
     private final String options;
-    MediaPlayer mediaPlayer;
+    MediaPlayer mediaPlayer = null;
 
     public StreamHttp(String serverAddress, int serverPort) {
+        System.out.println("New StreamHttp");
         this.options = formatHttpStream(serverAddress, serverPort); //formatHttpStream("localhost", 5555)
+        if(mediaPlayer == null) {
+            MediaPlayerFactory mediaPlayerFactory = new MediaPlayerFactory();
+            mediaPlayer = mediaPlayerFactory.mediaPlayers().newMediaPlayer();
+        }
     }
 
     private String formatHttpStream(String serverAddress, int serverPort) {
@@ -24,7 +29,6 @@ public class StreamHttp implements Runnable {
 
     @Override
     public void run() {
-        startPlayer();
         try {
             Thread.currentThread().join();
         } catch (InterruptedException e) {
@@ -33,30 +37,25 @@ public class StreamHttp implements Runnable {
         }
     }
 
-    public void startPlayer() {
+    public void playSong(String song) {
+        if(mediaPlayer != null) mediaPlayer.release();
         MediaPlayerFactory mediaPlayerFactory = new MediaPlayerFactory();
         mediaPlayer = mediaPlayerFactory.mediaPlayers().newMediaPlayer();
-        mediaPlayer.media().play("/home/tom/Project/Application-Architectures-distribuees/ICE/Server/app/src/main/resources/2-seconds-of-silence.mp3", options);
-    }
-
-    public void playSong(String song) {
         mediaPlayer.media().play(song, options);
     }
 
     public void controlPlay() {
-        if (mediaPlayer == null) startPlayer();
         mediaPlayer.controls().play();
     }
 
     public void controlPause() {
-        if (mediaPlayer == null) startPlayer();
         mediaPlayer.controls().pause();
     }
 
     public void controlStop() {
-        if(mediaPlayer != null) {
-            mediaPlayer.controls().pause();
-        }
+        mediaPlayer.controls().pause();
+        mediaPlayer.release();
+
     }
 
     public void controlRepeat(boolean repeat) {

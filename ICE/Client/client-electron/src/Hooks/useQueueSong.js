@@ -6,7 +6,7 @@ const useQueueSong = (props) => {
     const [queue, setQueue] = React.useState(null)
     const [currentSong, setCurrentSong] = React.useState(0)
     const [changed, setChanged] = useState(true);
-    const [playingSong, setPlayingSong] = React.useState({title: 'Titre', artist: 'Artiste', album: '', cover: 'https://picsum.photos/45', duration: 0, id: 0, url: ''})
+    const [playingSong, setPlayingSong] = React.useState({title: 'Titre', artist: 'Artiste', album: '', cover: 'https://picsum.photos/45', duration: 0, id: 0, url: '', serverId: 0})
 
     useEffect(() => {
         if(!changed) return
@@ -35,6 +35,7 @@ const useQueueSong = (props) => {
     const musicChanged = (ind) => {
         let musique = props.Items[ind]
 
+        console.log(musique)
         setPlayingSong({
             id: musique.id.S,
             title: musique.SongTitle.S,
@@ -44,6 +45,7 @@ const useQueueSong = (props) => {
             fileURI: musique.URI.S,
             duration: musique.Duration.S,
             favorite: musique.Favorite.S,
+            serverId: musique.ServerId.S
         })
     }
 
@@ -55,7 +57,7 @@ const useQueueSong = (props) => {
         console.log(ind + " -- " + queue[ind])
         setCurrentSong(ind)
         musicChanged(ind)
-        window["electronAPI"].playerCommand({cmd: "playSong", value: queue[ind]})
+        window["electronAPI"].playerCommand({cmd: "playSong", value: queue[ind], serverId: playingSong.serverId})
     }
 
     const lastSong = () => {
@@ -66,7 +68,7 @@ const useQueueSong = (props) => {
         console.log(ind + " -- " + queue[ind])
         setCurrentSong(ind)
         musicChanged(ind)
-        window["electronAPI"].playerCommand({cmd: "playSong", value: queue[ind]})
+        window["electronAPI"].playerCommand({cmd: "playSong", value: queue[ind], serverId: playingSong.serverId})
     }
 
     return {

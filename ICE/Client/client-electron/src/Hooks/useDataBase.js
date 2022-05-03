@@ -7,9 +7,9 @@ function useDataBase() {
     const [changed, setChanged] = useState(true);
 
 
-    const addToDb = (album, artist, duration, cover, title, uri) => {
+    const addToDb = (album, artist, duration, cover, title, uri, serverId) => {
         setLoading(true);
-        fetch(`http://localhost:2222/addToDb?album=${album}&artist=${artist}&duration=${duration}&favorite=false&cover=${cover}&title=${title}&URI=${uri}`)
+        fetch(`http://localhost:2222/addToDb?album=${album}&artist=${artist}&duration=${duration}&favorite=false&cover=${cover}&title=${title}&URI=${uri}&ServerId=${serverId}`)
             .then(response => response.json())
             .then(() => {
                 setLoading(false);
