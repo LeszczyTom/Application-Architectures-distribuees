@@ -12,25 +12,16 @@ import React from 'react';
 import {
   SafeAreaView,
   StatusBar,
-  useColorScheme,
   StyleSheet,
   View,
   Button
 } from 'react-native';
 
-import {
-  Colors
-} from 'react-native/Libraries/NewAppScreen';
 import Voix from "./Components/Voix";
 import Manuel from "./Components/Manuel";
 import MainScreen from "./AppComponents/MainScreen";
 
 const App = () => {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
 
   const styles = StyleSheet.create({
     container: {
@@ -66,8 +57,8 @@ const App = () => {
   };
 
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar barStyle={'light-content'} backgroundColor={"#272A56"}/>
+    <SafeAreaView>
+      <StatusBar barStyle={'light-content'} hidden={false} />
       {viewVisible === 0 ? <Menu /> : <></>}
       {viewVisible === 1 ? <Voix setViewVisible={setViewVisible}/> : <></>}
       {viewVisible === 2 ? <Manuel setViewVisible={setViewVisible}/> : <></>}
