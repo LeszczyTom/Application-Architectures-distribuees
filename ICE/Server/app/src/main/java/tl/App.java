@@ -43,10 +43,10 @@ public class App {
                 StreamHttp streamHttp;
                 if (properties.getProperty("Ice.Admin.ServerId").equals("Serv1")) {
                     System.out.println("Serv1");
-                    streamHttp = new StreamHttp("localhost", 5555);
+                    streamHttp = new StreamHttp("localhost", 1245);
                 } else {
                     System.out.println("Serv2");
-                    streamHttp = new StreamHttp("localhost", 5556);
+                    streamHttp = new StreamHttp("localhost", 1246);
                 }
 
                 Thread t1 = new Thread(streamHttp);

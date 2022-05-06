@@ -11,7 +11,9 @@ public class StreamHttp implements Runnable {
 
     public StreamHttp(String serverAddress, int serverPort) {
         System.out.println("New StreamHttp");
+        System.out.println(formatHttpStream(serverAddress, serverPort));
         this.options = formatHttpStream(serverAddress, serverPort); //formatHttpStream("localhost", 5555)
+        System.out.println(options);
         if(mediaPlayer == null) {
             MediaPlayerFactory mediaPlayerFactory = new MediaPlayerFactory();
             mediaPlayer = mediaPlayerFactory.mediaPlayers().newMediaPlayer();
@@ -24,7 +26,7 @@ public class StreamHttp implements Runnable {
                 serverAddress +
                 ':' +
                 serverPort +
-                "}}";
+                "/stream.mp3}}";
     }
 
     @Override
