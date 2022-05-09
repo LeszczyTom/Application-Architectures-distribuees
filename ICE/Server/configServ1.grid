@@ -1,8 +1,0 @@
-# Server configuration
-Ice.Admin.ServerId=Serv1
-Ice.Admin.Endpoints=tcp -h localhost
-Ice.ProgramName=Serv1
-# Object adapter PlayerAdapter
-PlayerAdapter1.Endpoints=tcp
-PlayerAdapter.AdapterId=PlayerAdapter1
-Ice.Default.Locator=IceGrid/Locator:tcp -h localhost -p 12000

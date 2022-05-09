@@ -10,7 +10,8 @@ import java.util.Arrays;
 
 public class App {
 
-    protected final static String FOLDER = "/home/tom/Project/Application-Architectures-distribuees/ICE/Server/app/src/main/resources/";
+    protected final static String FOLDER = "/root/app/Application-Architectures-distribuees/ICE/Server/app/src/main/resources/";
+    public static final String ADDRESS = "167.172.187.86";
 
     public static void main(String[] args) {
 
@@ -43,10 +44,10 @@ public class App {
                 StreamHttp streamHttp;
                 if (properties.getProperty("Ice.Admin.ServerId").equals("Serv1")) {
                     System.out.println("Serv1");
-                    streamHttp = new StreamHttp("localhost", 5555);
+                    streamHttp = new StreamHttp(ADDRESS, 1245);
                 } else {
                     System.out.println("Serv2");
-                    streamHttp = new StreamHttp("localhost", 5556);
+                    streamHttp = new StreamHttp(ADDRESS, 1246);
                 }
 
                 Thread t1 = new Thread(streamHttp);
