@@ -17,6 +17,7 @@ const bodyParser = require('body-parser');
 // app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json({limit: '50mb'}));
 
+const NLPServerURL = 'https://652ccdcc305706.lhrtunnel.link';
 
 const httpServer = createServer(app);
 
@@ -84,10 +85,58 @@ async function transcript(req, res) {
             .map(result => result.alternatives[0].transcript)
             .join('\n');
         console.log('Transcription: ', transcription);
-        res.json({"transcription": transcription});
+        // res.json({"transcription": transcription});
+        // test();
+        extractNL(transcription, res);
 
     }catch(error){
         console.log(error);
     }
 }
+
+async function extractNL (transcription, response){
+    const axios = require('axios');
+
+    const data = transcription;
+    // const data = "joue une musique de Coldplay";
+
+    var config = {
+        headers: {
+            'Content-Length': data.length,
+            'Content-Type': 'text/plain'
+        },
+        responseType: 'text'
+    };
+
+    axios.post(NLPServerURL + '/JavaWebService-1.0/extractNaturalLanguage', data, config)
+        .then((res) => {
+            console.log(res.data);
+            response.send(res.data);
+        }).catch((err) => {
+        console.error(err);
+    });
+
+}
+
+async function test (){
+    const https = require('https');
+
+    https.get(NLPServerURL + '/JavaWebService-1.0/test', (resp) => {
+        let data = '';
+
+        // Un morceau de réponse est reçu
+        resp.on('data', (chunk) => {
+            data += chunk;
+        });
+
+        // La réponse complète à été reçue. On affiche le résultat.
+        resp.on('end', () => {
+            console.log(data);
+        });
+
+    }).on("error", (err) => {
+        console.log("Error: " + err.message);
+    });
+}
+
 
