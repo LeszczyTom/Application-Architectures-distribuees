@@ -10,8 +10,8 @@ import java.util.Arrays;
 
 public class App {
 
-    protected final static String FOLDER = "/home/tom/Project/Application-Architectures-distribuees/ICE/Server/app/src/main/resources/";
-    public static final String ADDRESS = "192.168.1.19";
+    protected final static String FOLDER = "/root/app/Application-Architectures-distribuees/ICE/Server/app/src/main/resources/";
+    public static final String ADDRESS = "167.172.187.86";
 
     public static void main(String[] args) {
 
