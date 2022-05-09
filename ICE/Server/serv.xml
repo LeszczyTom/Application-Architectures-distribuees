@@ -3,7 +3,7 @@
         <node name="node1">
             <server id="Serv1" exe="java" activation="on-demand">
                 <option>-jar</option>
-                <option>/home/tom/Project/Application-Architectures-distribuees/ICE/Server/out/artifacts/Server_app_main_jar/Server.app.main.jar</option>
+                <option>/root/Server.app.main.jar</option>
                 <adapter name="PlayerAdapter" endpoints="tcp">
                     <object identity="player1" type="::tl::Player" property="Identity"/>
                 </adapter>
@@ -12,7 +12,7 @@
         <node name="node2">
             <server id="Serv2" exe="java" activation="on-demand">
                 <option>-jar</option>
-                <option>/home/tom/Project/Application-Architectures-distribuees/ICE/Server/out/artifacts/Server_app_main_jar/Server.app.main.jar</option>
+                <option>/root/Server.app.main.jar</option>
                 <adapter name="PlayerAdapter" endpoints="tcp">
                     <object identity="player2" type="::tl::Player" property="Identity"/>
                 </adapter>
