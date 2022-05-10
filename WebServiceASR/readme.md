@@ -8,10 +8,6 @@ npm install dotenv
 
 npm install --save @google-cloud/speech
 
-Required: get a Google Service json key for using SpeechToText and place it at the root.
-
-To use the service:
-
 Request:
 - URL: http://pedago.univ-avignon.fr:3147/speechToText
 - Method: POST
@@ -21,3 +17,8 @@ Request:
 Response:
 - Body (JSON):
 {"transcription": "a text representing the audio transcription"
+
+SSH to launch service:
+ssh uapv2200551@pedago.univ-avignon.fr
+cd WebServiceASR
+node WebServiceASR.js
