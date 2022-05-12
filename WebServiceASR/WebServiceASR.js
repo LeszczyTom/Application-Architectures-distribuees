@@ -17,7 +17,7 @@ const bodyParser = require('body-parser');
 // app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json({limit: '50mb'}));
 
-const NLPServerURL = 'https://652ccdcc305706.lhrtunnel.link';
+const NLPServerURL = 'https://61e0cd3a963948.lhrtunnel.link';
 
 const httpServer = createServer(app);
 
@@ -56,14 +56,15 @@ async function transcript(req, res) {
     var audioEncoded = req.body.audioEncoded;
 
     // const filename = 'C:/Users/utilisateur/Documents/SpeakerRecord/2.mp3';
-    const encoding = 'UNSPECIFIED';
-    const sampleRateHertz = 16000;
+    const encoding = 'AMR';
+    const sampleRateHertz = 8000;
     const languageCode = 'fr-FR';
 
     const config = {
         encoding: encoding,
         sampleRateHertz: sampleRateHertz,
         languageCode: languageCode,
+        alternativeLanguageCodes: ['es-ES', 'en-US'],
     };
     // const audio = {
     //     content: fs.readFileSync(filename).toString('base64'),
@@ -110,8 +111,9 @@ async function extractNL (transcription, response){
 
     axios.post(NLPServerURL + '/JavaWebService-1.0/extractNaturalLanguage', data, config)
         .then((res) => {
-            console.log(res.data);
-            response.send(res.data);
+            var textToSend = res.data+"\\"+transcription;
+            console.log(textToSend);
+            response.send(textToSend);
         }).catch((err) => {
         console.error(err);
     });

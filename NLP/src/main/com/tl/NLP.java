@@ -3,7 +3,7 @@ package com.tl;
 import java.util.*;
 import java.text.Normalizer;
 
-class NLP {
+public class NLP {
 
     private final String[] prepositions = {"A", "dans", "par", "pour", "vers", "avec", "de", "sans", "sous"};
     private final String[] determiantns = {"du", "de", "un", "une", "le", "la", "l", "les", "des"};
@@ -55,6 +55,11 @@ class NLP {
     }
 
     public String getOtherAction(String[] tokens) {
+        for( String s: tokens){
+            if(s.equals("pause")){
+                return "pause";
+            }
+        }
         if(tokens[0].equals("met") && tokens[1].equals("en") && tokens[2].equals("boucle")) return "shuffle";
         String prec = tokens[0];
         for(String token : tokens) {
