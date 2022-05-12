@@ -3,9 +3,9 @@ require('dotenv').config()
 const { v4: uuid } = require('uuid');
 
 AWS.config.update({
-    region: process.env.REACT_APP_AWS_REGION,
-    accessKeyId: process.env.REACT_APP_AWS_ACCESS_KEY_ID,
-    secretAccessKey: process.env.REACT_APP_AWS_SECRET_ACCESS_KEY
+    region: "eu-west-3",
+    accessKeyId: "AKIA3ZFOLDLCHLFE2EFM",
+    secretAccessKey: "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"
 })
 
 class DynamoDB {
